@@ -1,0 +1,26 @@
+<ion-content>
+  <ion-list>
+    <div class="logo">
+      <img style="width:30%" id="logo" src="img/logo.png" alt="image-logo">
+    </div>
+    <form #authForm (ngSubmit)="onLogin($event,login)" novalidate>
+      <ion-item class="login-width">
+        <ion-input type="text" name="username" placeholder="Username" [(ngModel)]="username" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="login-width">
+        <ion-input type="password" name="password" placeholder="Password" [(ngModel)]="password" required>
+        </ion-input>
+      </ion-item>
+
+
+      <button type="submit" class="login-width" ion-button block>Login</button>
+      <ion-item class="login-width back">
+        <ion-label>Remember Me</ion-label>
+        <ion-checkbox color="dark" [(ngModel)]="remember" name="remember" checked="false"></ion-checkbox>
+      </ion-item>
+    </form>
+  </ion-list>
+
+</ion-content>

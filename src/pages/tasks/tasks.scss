@@ -1,0 +1,35 @@
+page-tasks {
+    .head{
+        background-color: #282d28
+    }
+    .name{
+        width: 25%;
+    }
+    .time{
+        width: 25%;
+    }
+    
+    .icon{
+        width: 5%;
+        height: 15px;
+    }
+    ion-item{
+        display: inherit;
+        border-radius: 5px;
+        margin-bottom: 2%;
+    }
+    .active{
+        background-color: #282d28;
+        color: white;
+    }
+    ion-content{
+        margin-top: 56px;
+        background-color:#e1e1e1;
+    }
+    .content-md{
+        background-color:#e1e1e1;
+    }
+    .element ion-label{
+        display: -webkit-box
+    }
+}
