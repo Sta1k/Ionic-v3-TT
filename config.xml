@@ -91,4 +91,5 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="^0.8.5" />
+    <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
 </widget>

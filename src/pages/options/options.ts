@@ -17,7 +17,8 @@ export class OptionsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
-
+checkbox;
+lang;
   ionViewDidLoad() {
     console.log('ionViewDidLoad OptionsPage');
   }

@@ -7,8 +7,8 @@ import { Database } from "../providers/db/db"
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { Device } from '@ionic-native/device';
 import { DataProvider } from '../providers/data/data'
-
-import { HomePage } from '../pages/home/home';
+import { OneSignal } from '@ionic-native/onesignal';
+import { SingleTaskPage } from '../pages/single-task/single-task';
 
 import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks'
@@ -31,7 +31,8 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(private device: Device,
+  constructor(private oneSignal: OneSignal,
+    private device: Device,
     private faio: FingerprintAIO,
     private db: Database,
     public platform: Platform,
@@ -44,7 +45,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
+      { title: 'Task', component: SingleTaskPage },
       { title: 'Tasks', component: TasksPage },
       { title: 'Login', component: LoginPage },
       { title: 'Team', component: TeamPage },
@@ -56,6 +57,7 @@ export class MyApp {
     ];
 
   }
+  
   successRemember() {
 
     let result,
@@ -132,6 +134,19 @@ export class MyApp {
       //   : this.openPage(LoginPage);//console.log('IOS');
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.oneSignal.startInit('77a9af35-365a-403f-9204-02f7370ac44e', '403307026230');
+      
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+      
+      this.oneSignal.handleNotificationReceived().subscribe(() => {
+       // do something when notification is received
+      });
+      
+      this.oneSignal.handleNotificationOpened().subscribe(() => {
+        // do something when a notification is opened
+      });
+      
+      this.oneSignal.endInit();
     });
   }
 
@@ -140,4 +155,5 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
 }

@@ -11,7 +11,7 @@
           *ngFor='let task of userTasks' 
           [ngClass]="{active:task.current==true}">
   <div class="name">{{task.name}}</div>
-  <div class="time">{{task.time}}</div>
+  <div class="time">{{task.time|headTime}}</div>
   <ion-icon name="ion-ios-arrow-forward" ></ion-icon>
 </ion-item>
 </ion-content>

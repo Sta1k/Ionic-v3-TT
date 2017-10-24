@@ -8,15 +8,16 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'headOn',
-  templateUrl: 'head.html'
+  templateUrl: 'head.html',
+  //pipes:[]
 })
 export class HeadComponent {
 
-  text: string;
+  time: string;
 
   constructor() {
     console.log('Hello HeadComponent Component');
-    this.text = 'Hello World';
+    this.time = '0';
   }
 
 }

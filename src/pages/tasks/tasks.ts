@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,PopoverController  } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { DataProvider } from '../../providers/data/data';
+import { SingleTaskPage } from '../single-task/single-task'
 import 'rxjs/add/operator/toPromise';
 import * as _ from 'underscore';
 /**
@@ -14,7 +15,7 @@ import * as _ from 'underscore';
 @IonicPage()
 @Component({
   selector: 'page-tasks',
-  templateUrl: 'tasks.html',
+  templateUrl: 'tasks.html'
 })
 export class TasksPage {
   userTasks: any;
@@ -27,13 +28,20 @@ export class TasksPage {
   }
   ionViewWillEnter() {
     this.userTasks = this.data.userTasks;
-    console.log(this.userTasks)
+    // console.log(this.userTasks)
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TasksPage');
+    // console.log('ionViewDidLoad TasksPage');
   }
   openTask(task) {
     console.log(task)
-    console.log('now: ', _.now());
+    
+    let popover = this.popoverCtrl.create(SingleTaskPage,task);
+    popover.present({
+      //task: task
+    });
+  }
+  checkStarted(){
+    
   }
 }
