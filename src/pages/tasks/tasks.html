@@ -7,7 +7,7 @@
 <headOn></headOn>
 <ion-content padding ng-if="userTasks">
 <ion-item class="element" 
-          (click)='openTask(task.id)'   
+          (click)='openTask(task)'   
           *ngFor='let task of userTasks' 
           [ngClass]="{active:task.current==true}">
   <div class="name">{{task.name}}</div>

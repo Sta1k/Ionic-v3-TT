@@ -1,6 +1,6 @@
 {
   "name": "iott",
-  "app_id": "",
+  "app_id": "0f34e3d9",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

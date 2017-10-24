@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, URLSearchParams, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-// import {User} from '../../app/shared/classes'
 /*
   Generated class for the ApiProvider provider.
 
