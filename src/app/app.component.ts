@@ -20,11 +20,14 @@ import { OptionsPage } from '../pages/options/options';
 import { CurrentteamPage } from '../pages/currentteam/currentteam';
 import { User } from '../app/shared/classes'
 import 'rxjs/add/operator/toPromise';
-// import {ApiService} from './shared/api.service'
+import { Subscription } from 'rxjs';
+import * as _ from 'underscore';
 @Component({
   templateUrl: 'app.html',
 })
 export class MyApp {
+  private onResume: Subscription;
+  private onPause: Subscription;
   @ViewChild('content') nav: NavController;
 
   rootPage: any;
@@ -41,23 +44,34 @@ export class MyApp {
     public data: DataProvider,
     private api: ApiProvider,
   ) {
+    this.onResume = platform.resume.subscribe(() => {
+      // do something meaningful when the app is put in the foreground
+      console.log('app in foreground')
+   }); 
+   this.onPause = platform.pause.subscribe(() => {
+    console.log('app in background')
+      this.data.checkNotification();
+   });
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Task', component: SingleTaskPage },
-      { title: 'Tasks', component: TasksPage },
-      { title: 'Login', component: LoginPage },
       { title: 'Team', component: TeamPage },
-      { title: 'CurrentTeam', component: CurrentteamPage },
-      { title: 'Statistic', component: StatisticPage },
+      { title: 'Tasks', component: TasksPage },
       { title: 'Create', component: CreatePage },
+      { title: 'Statistic', component: StatisticPage },
       { title: 'Options', component: OptionsPage },
       { title: 'Contacts', component: ContactsPage },
+      { title: 'Login', component: LoginPage },
     ];
 
   }
-  
+  ngOnDestroy() {
+    // always unsubscribe your subscriptions to prevent leaks
+    
+    this.onResume.unsubscribe();
+    this.onPause.unsubscribe();
+  }
   successRemember() {
 
     let result,
@@ -65,6 +79,7 @@ export class MyApp {
         username: this.user.username.__zone_symbol__value,
         password: this.user.password.__zone_symbol__value
       }
+      //this.username=this.user.username.__zone_symbol__value
     console.log(user)
     return this.api.login(user)
       .toPromise()
@@ -82,17 +97,25 @@ export class MyApp {
 
 
   }
-  user
+  user;
+  username;
   private goToTasks(r) {
-    this.data.userTasks = r.tasks
+
+    this.data.userTasks = r.tasks;
+    this.username=r.user.name;
+    this.data.AllWorkedTime=this.summa(_.pluck(this.data.userTasks, 'time'))
     this.nav.setRoot(TasksPage);
   }
-
+  summa(m) {
+    for (var s = 0, k = m.length; k; s += m[--k]);
+    this.data.AllWorkedTime = s;
+  }
   initUser() {
     return this.user = {
       username: this.db.getName(),
       password: this.db.getPass()
     }
+    
 
   }
   initializeApp() {

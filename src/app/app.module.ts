@@ -16,6 +16,7 @@ import { TasksPage } from '../pages/tasks/tasks';
 // import {ApiService} from './shared/api.service'
 import { OneSignal } from '@ionic-native/onesignal';
 import { StatusBar } from '@ionic-native/status-bar';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Database } from '../providers/db/db';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
@@ -75,6 +76,7 @@ import { PipesModule } from '../pipes/pipes.module'
     HttpModule,
     ApiProvider,
     DataProvider,
+    LocalNotifications,
 
   ]
 })

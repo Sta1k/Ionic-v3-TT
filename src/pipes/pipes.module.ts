@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { HeadTimePipe } from './head-time/head-time';
+import { TimePipe } from './time/time';
+import { SlicePipe } from './slice/slice';
 @NgModule({
-	declarations: [HeadTimePipe],
+	declarations: [HeadTimePipe,
+    TimePipe,
+    SlicePipe],
 	imports: [],
-	exports: [HeadTimePipe]
+	exports: [HeadTimePipe,
+    TimePipe,
+    SlicePipe]
 })
 export class PipesModule {}

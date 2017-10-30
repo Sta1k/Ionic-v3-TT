@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { Events } from 'ionic-angular';
+import { DataProvider } from '../../providers/data/data'
 /**
  * Generated class for the HeadComponent component.
  *
@@ -13,11 +14,11 @@ import { Component } from '@angular/core';
 })
 export class HeadComponent {
 
-  time: string;
+  time: any;
 
-  constructor() {
-    console.log('Hello HeadComponent Component');
-    this.time = '0';
+  constructor(public event: Events,public data: DataProvider) {
+    this.time = Number(this.data.AllWorkedTime)||0;
+    this.event.subscribe('updHead',(data)=>this.time=data)
   }
-
+  
 }

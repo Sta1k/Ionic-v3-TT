@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,PopoverController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, Events } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { DataProvider } from '../../providers/data/data';
 import { SingleTaskPage } from '../single-task/single-task'
@@ -19,29 +19,56 @@ import * as _ from 'underscore';
 })
 export class TasksPage {
   userTasks: any;
+  interval
   constructor(
     public popoverCtrl: PopoverController,
     public navCtrl: NavController,
     public navParams: NavParams,
     private api: ApiProvider,
-    public data: DataProvider) {
+    public data: DataProvider,
+    public event: Events) {
+    this.event.subscribe('update', (tasks) => this.userTasks = tasks)
+    
   }
+  
   ionViewWillEnter() {
-    this.userTasks = this.data.userTasks;
-    // console.log(this.userTasks)
+    this.reqServ()
+
+  }
+  ngOnInit(){
+    this.interval= setInterval(()=>{this.reqServ()},60000);
+  }
+  ngOnDestroy(){
+    this.interval?clearInterval(this.interval):console.log('no interval')
   }
   ionViewDidLoad() {
     // console.log('ionViewDidLoad TasksPage');
   }
   openTask(task) {
     console.log(task)
-    
-    let popover = this.popoverCtrl.create(SingleTaskPage,task);
+    let popover = this.popoverCtrl.create(SingleTaskPage, task);
     popover.present({
       //task: task
     });
   }
-  checkStarted(){
-    
+  
+  reqServ() {
+    let result;
+    this.api.requestTasks(false).toPromise()
+      .then(res => result = res.json())
+      .then(result => {
+        !result.success?console.log(result):this.bindData(result)
+       })
+  }
+  bindData(r){
+    this.data.userTasks=r.tasks;
+    this.userTasks=this.data.userTasks;
+    this.checkStarted();
+  }
+
+  checkStarted() {
+    let obj: Object = _.findWhere(this.data.userTasks, { current: true });
+    console.log(this.data.userTasks, obj)
+    obj.hasOwnProperty('current') ? this.data.startTimer(obj) : console.log('no active task')
   }
 }

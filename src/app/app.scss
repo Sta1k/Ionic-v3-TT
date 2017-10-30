@@ -19,6 +19,11 @@ ion-header .toolbar{
 }
 
 ion-content{
+
     margin-top: 56px;
     background-color:#e1e1e1;
+}
+ion-app.md [padding],
+ion-app.md [padding] .scroll-content {
+  padding: 10px;
 }
