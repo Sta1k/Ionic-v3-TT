@@ -19,26 +19,34 @@ export class Database {
     this.storage.set('pass', pass);
     this.storage.set('remember', remember);
   }
-  getName(){
+  getName() {
     return this.storage.get('name')
   }
-  getPass(){
+  getPass() {
     return this.storage.get('pass')
   }
-  // readRemember() {
-  //   let user;
-  //   return this.storage.get('name')
-    
-      
-  //   return this.storage.get('pass')
-      
-     
-  // }
+  writeLang(lng) {
+    this.storage.set('lang', lng);
+  }
+  readLang() {
+    return this.storage.get('lang');
+  }
+  writeFinger(uname, pass, finger) {
+    this.storage.set('name', uname);
+    this.storage.set('pass', pass);
+    this.storage.set('finger', finger);
+  }
   checkRemember() {
     return this.storage.get('remember')
   }
   delRemember() {
     this.storage.set('remember', false);
+  }
+  checkFinger() {
+    return this.storage.get('finger')
+  }
+  delFinger() {
+    this.storage.set('finger', false);
   }
 
 }

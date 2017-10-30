@@ -13,7 +13,7 @@ import { SingleTaskPage } from '../pages/single-task/single-task';
 import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks'
 import { TeamPage } from '../pages/team/team';
-import {StatisticPage} from '../pages/statistic/statistic'
+import { StatisticPage } from '../pages/statistic/statistic'
 import { ContactsPage } from '../pages/contacts/contacts';
 import { CreatePage } from '../pages/create/create';
 import { OptionsPage } from '../pages/options/options';
@@ -47,11 +47,11 @@ export class MyApp {
     this.onResume = platform.resume.subscribe(() => {
       // do something meaningful when the app is put in the foreground
       console.log('app in foreground')
-   }); 
-   this.onPause = platform.pause.subscribe(() => {
-    console.log('app in background')
+    });
+    this.onPause = platform.pause.subscribe(() => {
+      console.log('app in background')
       this.data.checkNotification();
-   });
+    });
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -68,7 +68,7 @@ export class MyApp {
   }
   ngOnDestroy() {
     // always unsubscribe your subscriptions to prevent leaks
-    
+
     this.onResume.unsubscribe();
     this.onPause.unsubscribe();
   }
@@ -79,32 +79,34 @@ export class MyApp {
         username: this.user.username.__zone_symbol__value,
         password: this.user.password.__zone_symbol__value
       }
-      //this.username=this.user.username.__zone_symbol__value
-    console.log(user)
+    this.data.userLogin = user
+    console.log(this.data.userLogin)
     return this.api.login(user)
       .toPromise()
       .then(res => result = res.json())
       .then(result => result.success
         ?
-        this.api.requestTasks(false)
-          .toPromise()
-          .then(res => result = res.json())
-          .then(result => result.success ?
-            this.goToTasks(result)
-            :
-            this.nav.setRoot(LoginPage))
+        this.setUserType(result)
         : console.log(result))
-
-
   }
   user;
   username;
+  private setUserType(r) {
+    let result
+    this.data.userType = r.type;
+    this.api.requestTasks(false)
+      .toPromise()
+      .then(res => result = res.json())
+      .then(result => result.success ?
+        this.goToTasks(result) :
+        this.nav.setRoot(LoginPage))
+  }
   private goToTasks(r) {
 
     this.data.userTasks = r.tasks;
-    this.username=r.user.name;
-    this.data.AllWorkedTime=this.summa(_.pluck(this.data.userTasks, 'time'))
-    this.nav.setRoot(TasksPage);
+    this.username = r.user.name;
+    this.data.AllWorkedTime = this.summa(_.pluck(this.data.userTasks, 'time'))
+    this.data.userType > 0 ? this.nav.setRoot(TeamPage) : this.nav.setRoot(TasksPage);
   }
   summa(m) {
     for (var s = 0, k = m.length; k; s += m[--k]);
@@ -115,60 +117,56 @@ export class MyApp {
       username: this.db.getName(),
       password: this.db.getPass()
     }
-    
 
+
+  }
+  defaultLang(e) {
+    console.log(e)
+    this.data.lang = this.platform.lang()
+  }
+  initLang(i) {
+    console.log(i)
+    if ((i !== undefined) && (i !== null)) {
+      this.data.lang = i
+    } else {
+      this.defaultLang({ e: null })
+    }
   }
   initializeApp() {
     this.platform.ready().then(() => {
 
       let result;
+      this.db.readLang()
+        .then(obj => this.initLang(obj))
+        .catch(e => this.defaultLang(e))
       this.initUser()
-      this.db.checkRemember()
-        .then(
-        val => val ? this.successRemember() : this.openPage(LoginPage),
-        err => console.log('Error', err))
-
-
-      // .then(r=>user.username=r)
-      // .then(()=>this.db.getPass()
-      // .then(r=>{user.password=r;this.successRemember(user)}))
-      //   .then(res => console.log(res))
-      //   : console.log('log2'))
-      //    this.api.requestTasks(false)
-      //    .toPromise()
-      //    .then(res => result = res.json())
-      // .then(result => result.success ?
-      //    this.data.userTasks = result.tasks 
-      //    : 
-      //    this.navCtrl.setRoot(LoginPage)) && console.log('Error: ', result): console.log('not true', val))
-      // .then(res => this.navCtrl.setRoot(TasksPage)) 
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      // this.faio.isAvailable() //&& this.device.platform == 'Android'
-      //   ? this.faio.show({
-      //     clientId: 'Fingerprint-Demo',
-      //     clientSecret: 'password', //Only necessary for Android
-      //     disableBackup: true,  //Only for Android(optional)
-      //     localizedFallbackTitle: 'Use Pin', //Only for iOS
-      //     localizedReason: 'Please authenticate' //Only for iOS
-      //   })
-      //   .then((result:any) => console.log(result))
-      //   .catch((error:any) => console.log(error))
-      //   : this.openPage(LoginPage);//console.log('IOS');
+      this.db.checkFinger() ?
+        this.faio.isAvailable() ?
+          this.faio.show({
+            clientId: 'Fingerprint-Demo',
+            clientSecret: 'password', //Only necessary for Android
+            disableBackup: true,  //Only for Android(optional)
+            localizedFallbackTitle: 'Use Pin', //Only for iOS
+            localizedReason: 'Please authenticate' //Only for iOS
+          }).then(r => this.successRemember())
+            .catch(e => this.nav.setRoot(LoginPage)) : console.log('not available finger') :
+        this.db.checkRemember()
+          .then(
+          val => val ? this.successRemember() : this.openPage(LoginPage),
+          err => this.openPage(LoginPage))
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.oneSignal.startInit('77a9af35-365a-403f-9204-02f7370ac44e', '403307026230');
-      
+
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
-      
+
       this.oneSignal.handleNotificationReceived().subscribe(() => {
-       // do something when notification is received
+        // do something when notification is received
       });
-      
+
       this.oneSignal.handleNotificationOpened().subscribe(() => {
         // do something when a notification is opened
       });
-      
       this.oneSignal.endInit();
     });
   }

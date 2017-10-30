@@ -15,7 +15,7 @@ import * as _ from 'underscore';
 @Injectable()
 export class DataProvider {
 
-  constructor(public http: Http, public events: Events,private localNotifications: LocalNotifications) {
+  constructor(public http: Http, public events: Events, private localNotifications: LocalNotifications) {
     console.log('DataProvider Loaded');
     this.events.subscribe('update', (tasks) => this.userTasks = tasks)
   }
@@ -24,7 +24,8 @@ export class DataProvider {
   userLogin: any;
   AllWorkedTime;
   Timer: any;
-
+  lang: any;
+  finger:boolean=false;
   clear() {
     clearInterval(this.Timer);
   }
@@ -45,10 +46,10 @@ export class DataProvider {
   }
   checkNotification() {
     let obj = _.findWhere(this.userTasks, { current: true }),
-        t=this.getDate(),
-        now = t.h+':'+t.m;
-        if(obj == undefined&&now == '10:15')this.forgetTurnOn();
-        else if(obj&&now == '19:15')this.forgetTurnOff();
+      t = this.getDate(),
+      now = t.h + ':' + t.m;
+    if (obj == undefined && now == '10:15') this.forgetTurnOn();
+    else if (obj && now == '19:15') this.forgetTurnOff();
   }
   getDate() {
     return {
@@ -56,12 +57,12 @@ export class DataProvider {
       h: new Date().getHours()
     }
   }
-  forgetTurnOn() {    
+  forgetTurnOn() {
     this.localNotifications.schedule({
       id: 1,
       title: 'Iterius Notification',
       text: 'Вы забыли включить трекер?',
-      every:'none'
+      every: 'none'
     });
   };
   forgetTurnOff() {
@@ -69,7 +70,7 @@ export class DataProvider {
       id: 2,
       title: 'Iterius Notification',
       text: 'Вы забыли выключить трекер?',
-      every:'none'
+      every: 'none'
     });
   }
 }
