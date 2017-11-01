@@ -7,5 +7,47 @@
 <headOn></headOn>
 
 <ion-content padding>
-
+  <ion-item *ngIf='role>0'>
+    <ion-label>User</ion-label>
+    <ion-select [(ngModel)]="userData.name" (ionChange)=changeUser($event)>
+      <ion-option  *ngFor="let l of userData" [selected]='l.selected' [value]='l.id'>{{l.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+      <ion-label>Month</ion-label>
+      <ion-select [(ngModel)]="monthData.name" (ionChange)=changeMonth($event)>
+        <ion-option *ngFor="let l of monthData" [selected]='l.selected' [value]='l.id'>{{l.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Year</ion-label>
+        <ion-select [(ngModel)]="yearData.name" (ionChange)=changeYear($event)>
+          <ion-option *ngFor="let l of yearData" [selected]='l.selected' [value]='l.name'>{{l.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <button ion-button block>Search</button>
+      <div class="blue-parallel ">Sum of hours per month:<span class="right-col">{{iter|stat}}</span></div>
+      <div class="blue-parallel" >Overworked <span class="right-col">{{differ|stat}}</span>
+      </div>
+      <!--<div class="blue-parallel ">{{'sum_issue'|translate}}</div>-->
+      <table class="table-stat" *ngIf='table'>
+        <thead>
+        <tr class="background">
+          <th>№</th>
+          <th>Date</th>
+          <th>Day</th>
+          <th>Time</th>
+          <th>Break</th>
+        </tr>
+        </thead>
+        <tbody class="statisticTable">
+        <tr *ngFor='let item of r.user.days; let i = index' [attr.data-index]="i" >
+          <td>{{i+1}}</td>
+          <td>{{item.date}}</td>
+          <td>{{item.day}}</td>
+          <td>{{item.time|stat}}</td>
+          <td>{{item.break|stat}}</td>
+        </tr>
+        </tbody>
+      </table>
 </ion-content>

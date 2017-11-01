@@ -7,9 +7,9 @@ page-login{
     border-bottom: none;
 
   }
-  .content-md{
-    background-color:#282d39;
-  }
+  // .content-md{
+  //   background-color:#282d39;
+  // }
   .login-width{
     margin: 3%;
     width: 94%;
@@ -18,5 +18,9 @@ page-login{
   .back{
     background-color: #282d39;
     color: white;
+  }
+  .content{
+    margin-top: 0!important;
+    background-color:#282d39;
   }
 }

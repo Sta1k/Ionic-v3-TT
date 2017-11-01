@@ -27,3 +27,27 @@ ion-app.md [padding],
 ion-app.md [padding] .scroll-content {
   padding: 10px;
 }
+.menu_img{
+    width: 25px;
+    vertical-align: middle;
+}
+.sidemenu .menu-inner{
+    background: #282d39
+}
+.menu-inner ion-content{
+    background: #282d39;
+    color:white;
+}
+.menu-inner ion-content .item{
+    background: #282d39;
+    color:white;
+}
+.footer .item{
+    background: #282d39;
+    color:white;
+}
+
+.list-md .item-block .item-inner,
+.item-md.item-block .item-inner {
+    border-bottom:none;
+}

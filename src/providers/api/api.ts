@@ -15,7 +15,7 @@ export class ApiProvider {
   }
 
   login(req) {
-    console.log('Request to api',req);
+    console.log('Request to api', req);
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': '*/*'
@@ -25,8 +25,8 @@ export class ApiProvider {
 
     body.set("model[password]", req.password);
     body.set("model[username]", req.username);
-    body.set("model[remember]", req.remember||false);
-    
+    body.set("model[remember]", req.remember || false);
+
     return this.http.post(this.url + 'login', body.toString(), options)
   }
   // this.requestTasks = function () {//taskService.requestData заменить на APIService.requestTasks
@@ -43,12 +43,12 @@ export class ApiProvider {
     });
     let options = new RequestOptions({ headers: headers });
     let body = new URLSearchParams();
-    return !id ?  this.http.post(this.url + 'tasks', null)
+    return !id ? this.http.post(this.url + 'tasks', null)
       //.subscribe((event: Response) => console.log(event))
-      : this.userWithId(headers,options,body,id)
-        //.subscribe((event: Response) => console.log(event));
+      : this.userWithId(headers, options, body, id)
+    //.subscribe((event: Response) => console.log(event));
   }
-  userWithId(head,opts,body,id){
+  userWithId(head, opts, body, id) {
     body.set("user", id);
     return this.http.post(this.url + 'tasks', body, opts)
   }
@@ -88,6 +88,25 @@ export class ApiProvider {
   //     url: url + 'createTask'
   //   })
   // };
+  requestStatistic(obj) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': '*/*'
+    });
+    let options = new RequestOptions({ headers: headers });
+    let body = new URLSearchParams();
+    return !obj
+      ? this.http.post(this.url + 'Statistic', null)
+
+      : this.userStatId(headers, options, body, obj)
+
+  }
+  userStatId(head, opts, body, obj) {
+    body.set("user", obj.user);
+    body.set("year", obj.year);
+    body.set("month", obj.month);
+    return this.http.post(this.url + 'Statistic', body, opts)
+  }
   // this.Statistic = function (obj) {
   //   console.log(obj);
   //   if (!obj) {
@@ -131,7 +150,7 @@ export class ApiProvider {
   //     url: url + 'teamStatus'
   //   })
   // };
- 
+
   // this.TaskUpdate = function (object) {//createTask.TaskCreate to APIService.TaskCreate
 
   //   // console.log(req);

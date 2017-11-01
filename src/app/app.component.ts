@@ -32,7 +32,7 @@ export class MyApp {
 
   rootPage: any;
 
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any,img:string }>;
 
   constructor(private oneSignal: OneSignal,
     private device: Device,
@@ -56,13 +56,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Team', component: TeamPage },
-      { title: 'Tasks', component: TasksPage },
-      { title: 'Create', component: CreatePage },
-      { title: 'Statistic', component: StatisticPage },
-      { title: 'Options', component: OptionsPage },
-      { title: 'Contacts', component: ContactsPage },
-      { title: 'Login', component: LoginPage },
+      { title: 'Team', component: TeamPage , img:'img/ico/people.png' },
+      { title: 'Tasks', component: TasksPage , img:'img/ico/brief.png'},
+      { title: 'Create', component: CreatePage, img:'img/ico/plus.png' },
+      { title: 'Statistic', component: StatisticPage ,img:'img/ico/stat.png'},
+      { title: 'Options', component: OptionsPage ,img:'img/ico/gear.png'},
+      { title: 'Login', component: LoginPage ,img:'img/ico/logout.png'},
     ];
 
   }
@@ -140,7 +139,7 @@ export class MyApp {
         .then(obj => this.initLang(obj))
         .catch(e => this.defaultLang(e))
       this.initUser()
-      this.db.checkFinger() ?
+      this.db.checkFinger().then(res=>console.log(res)) ?
         this.faio.isAvailable() ?
           this.faio.show({
             clientId: 'Fingerprint-Demo',

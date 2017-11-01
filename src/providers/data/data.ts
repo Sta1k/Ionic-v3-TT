@@ -20,12 +20,13 @@ export class DataProvider {
     this.events.subscribe('update', (tasks) => this.userTasks = tasks)
   }
   userType: any;
+  userList: any;
   userTasks: any;
   userLogin: any;
   AllWorkedTime;
   Timer: any;
   lang: any;
-  finger:boolean=false;
+  finger: boolean = false;
   clear() {
     clearInterval(this.Timer);
   }

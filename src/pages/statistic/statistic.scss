@@ -1,3 +1,45 @@
 page-statistic {
-
+    .table-stat {
+        width: 100%;
+        margin: 0;
+      }
+      
+th {
+    background-color: #0a9dc7;
+    color: white;
+  }
+  
+  table {
+    border-collapse: collapse;
+    border: 2px solid #e5e5e5;
+  }
+  
+  th, td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e5e5e5;
+    padding: 3% 1%;
+  }
+  
+  tbody tr {
+    background: white;
+  }
+  
+  tbody.statisticTable tr:nth-child(odd) {
+    background: #e5e5e5;
+  }
+  
+  tbody.statisticTable tr:nth-child(odd) td {
+    border-color: white;
+  }
+  
+  td {
+    text-align: right;
+    padding-right: 1%;
+  }
+  ion-item .table-stat{
+    width: 100%;
+    color: white;
+  }
+      
 }

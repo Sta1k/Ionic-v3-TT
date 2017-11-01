@@ -28,18 +28,18 @@ export class TasksPage {
     public data: DataProvider,
     public event: Events) {
     this.event.subscribe('update', (tasks) => this.userTasks = tasks)
-    
+
   }
-  
+
   ionViewWillEnter() {
     this.reqServ()
 
   }
-  ngOnInit(){
-    this.interval= setInterval(()=>{this.reqServ()},60000);
+  ngOnInit() {
+    this.interval = setInterval(() => { this.reqServ() }, 60000);
   }
-  ngOnDestroy(){
-    this.interval?clearInterval(this.interval):console.log('no interval')
+  ngOnDestroy() {
+    this.interval ? clearInterval(this.interval) : console.log('no interval')
   }
   ionViewDidLoad() {
     // console.log('ionViewDidLoad TasksPage');
@@ -51,18 +51,23 @@ export class TasksPage {
       //task: task
     });
   }
-  
+  onDelete(task) {
+    console.log('delete', task)
+  }
+  onEdit(task) {
+    console.log('Edit', task)
+  }
   reqServ() {
     let result;
     this.api.requestTasks(false).toPromise()
       .then(res => result = res.json())
       .then(result => {
-        !result.success?console.log(result):this.bindData(result)
-       })
+        !result.success ? console.log(result) : this.bindData(result)
+      })
   }
-  bindData(r){
-    this.data.userTasks=r.tasks;
-    this.userTasks=this.data.userTasks;
+  bindData(r) {
+    this.data.userTasks = r.tasks;
+    this.userTasks = this.data.userTasks;
     this.checkStarted();
   }
 

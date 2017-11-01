@@ -5,18 +5,30 @@
   Ionic pages and navigation.
 -->
 <headOn></headOn>
+
 <ion-content padding ng-if="userTasks">
-  <ion-item class="element" (click)='openTask(task)' *ngFor='let task of userTasks' [ngClass]="{active:task.current==true}">
-    <div class="name">{{task.name|slice}}</div>
-    <div class="time" [innerHtml]="task.time|time"></div>
-    <!-- <div class="arrow"> -->
-      <ion-icon name="ion-chevron-right">
-      </ion-icon>
-    <!-- </div> -->
-    <button ion-button icon-only>
-        <ion-icon name="ion-chevron-right"></ion-icon>
-      </button>
-
-
-  </ion-item>
+  <div class="titlePage">
+    <div>
+      <h3>My Tasks</h3>
+    </div>
+  </div>
+  <ion-list>
+    <ion-item-sliding *ngFor='let task of userTasks'>
+      <ion-item class="element" (click)='openTask(task)'  [ngClass]="{active:task.current==true}">
+        <div class="name">{{task.name|slice}}</div>
+        <div class="time" [innerHtml]="task.time|time"></div>
+        <!-- <div class="arrow"> -->
+        <ion-icon name="ion-chevron-right">
+        </ion-icon>
+        <!-- </div> -->
+        <button ion-button icon-only>
+          <ion-icon name="ion-chevron-right"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item-options side="right">
+          <button ion-button (click)="onDelete(task)">Del</button>
+          <button ion-button color="danger" (click)="onEdit(task)">Edit</button>
+        </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
