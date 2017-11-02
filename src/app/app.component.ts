@@ -139,7 +139,7 @@ export class MyApp {
         .then(obj => this.initLang(obj))
         .catch(e => this.defaultLang(e))
       this.initUser()
-      this.db.checkFinger().then(res=>console.log(res)) ?
+      this.db.checkFinger().then(res=>res ?
         this.faio.isAvailable() ?
           this.faio.show({
             clientId: 'Fingerprint-Demo',
@@ -149,7 +149,7 @@ export class MyApp {
             localizedReason: 'Please authenticate' //Only for iOS
           }).then(r => this.successRemember())
             .catch(e => this.nav.setRoot(LoginPage)) : console.log('not available finger') :
-        this.db.checkRemember()
+        this.db.checkRemember())
           .then(
           val => val ? this.successRemember() : this.openPage(LoginPage),
           err => this.openPage(LoginPage))
