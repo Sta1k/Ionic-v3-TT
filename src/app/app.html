@@ -1,7 +1,7 @@
 <ion-menu class="sidemenu" side="right" [content]="content">
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.component)">
        <img class="menu_img" src='{{p.img}}'> {{p.title}}
       </button>
     </ion-list>

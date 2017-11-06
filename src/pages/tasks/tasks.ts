@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, Events, AlertController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { DataProvider } from '../../providers/data/data';
 import { SingleTaskPage } from '../single-task/single-task'
@@ -21,6 +21,7 @@ export class TasksPage {
   userTasks: any;
   interval
   constructor(
+    private alert: AlertController,
     public popoverCtrl: PopoverController,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -46,16 +47,42 @@ export class TasksPage {
   }
   openTask(task) {
     console.log(task)
-    let popover = this.popoverCtrl.create(SingleTaskPage, task);
-    popover.present({
-      //task: task
-    });
+    this.navCtrl.setRoot(SingleTaskPage, task)
   }
   onDelete(task) {
-    console.log('delete', task)
+    let result,
+      alert = this.alert.create({
+        title: 'Confirm Delete',
+        message: 'Do you want to delete this task?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              this.api.taskDelete(task)
+                .subscribe(res => {
+                  result= res.json()
+                  result.success?this.reqServ():console.log('error while deleting')
+                })
+            }
+          }
+        ]
+      });
+    alert.present();
   }
   onEdit(task) {
-    console.log('Edit', task)
+    let result;
+    
+    this.api.taskUpdate(task).subscribe((res)=>{
+      result=res.json()
+      console.log('Edit', result)
+    })
   }
   reqServ() {
     let result;

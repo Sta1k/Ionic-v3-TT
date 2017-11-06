@@ -8,5 +8,30 @@
 
 
 <ion-content padding>
-
+    <div class="titlePage">
+        <div>
+          <h3>Create Task</h3>
+        </div>
+      </div>
+  <ion-item>
+    <ion-label color="primary" floating>Title:</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label color="primary" floating>Description:</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Associate with:</ion-label>
+        <ion-select>
+          <ion-option value="f">Female</ion-option>
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
+      </ion-item>
+      <button ion-button block>
+        Save
+      </button>
+      <button ion-button block>
+          Cancel
+        </button>
 </ion-content>

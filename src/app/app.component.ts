@@ -30,9 +30,9 @@ export class MyApp {
   private onPause: Subscription;
   @ViewChild('content') nav: NavController;
 
-  rootPage: any;
+ public rootPage: any;
 
-  pages: Array<{ title: string, component: any,img:string }>;
+  pages: Array<{ title: string, component: any, img: string }>;
 
   constructor(private oneSignal: OneSignal,
     private device: Device,
@@ -52,18 +52,16 @@ export class MyApp {
       console.log('app in background')
       this.data.checkNotification();
     });
-    this.initializeApp();
-
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Team', component: TeamPage , img:'img/ico/people.png' },
-      { title: 'Tasks', component: TasksPage , img:'img/ico/brief.png'},
-      { title: 'Create', component: CreatePage, img:'img/ico/plus.png' },
-      { title: 'Statistic', component: StatisticPage ,img:'img/ico/stat.png'},
-      { title: 'Options', component: OptionsPage ,img:'img/ico/gear.png'},
-      { title: 'Login', component: LoginPage ,img:'img/ico/logout.png'},
+      { title: 'Team', component: TeamPage, img: 'img/ico/people.png' },
+      { title: 'Tasks', component: TasksPage, img: 'img/ico/brief.png' },
+      { title: 'Create', component: CreatePage, img: 'img/ico/plus.png' },
+      { title: 'Statistic', component: StatisticPage, img: 'img/ico/stat.png' },
+      { title: 'Options', component: OptionsPage, img: 'img/ico/gear.png' },
+      { title: 'Login', component: LoginPage, img: 'img/ico/logout.png' },
     ];
-
+    this.initializeApp();
   }
   ngOnDestroy() {
     // always unsubscribe your subscriptions to prevent leaks
@@ -98,14 +96,14 @@ export class MyApp {
       .then(res => result = res.json())
       .then(result => result.success ?
         this.goToTasks(result) :
-        this.nav.setRoot(LoginPage))
+        this.openPage(LoginPage))
   }
   private goToTasks(r) {
 
     this.data.userTasks = r.tasks;
     this.username = r.user.name;
     this.data.AllWorkedTime = this.summa(_.pluck(this.data.userTasks, 'time'))
-    this.data.userType > 0 ? this.nav.setRoot(TeamPage) : this.nav.setRoot(TasksPage);
+    this.data.userType > 0 ? this.openPage(TeamPage) : this.openPage(TasksPage);
   }
   summa(m) {
     for (var s = 0, k = m.length; k; s += m[--k]);
@@ -139,7 +137,7 @@ export class MyApp {
         .then(obj => this.initLang(obj))
         .catch(e => this.defaultLang(e))
       this.initUser()
-      this.db.checkFinger().then(res=>res ?
+      this.db.checkFinger().then(res => res ?
         this.faio.isAvailable() ?
           this.faio.show({
             clientId: 'Fingerprint-Demo',
@@ -148,11 +146,11 @@ export class MyApp {
             localizedFallbackTitle: 'Use Pin', //Only for iOS
             localizedReason: 'Please authenticate' //Only for iOS
           }).then(r => this.successRemember())
-            .catch(e => this.nav.setRoot(LoginPage)) : console.log('not available finger') :
+            .catch(e => this.openPage(LoginPage)) : console.log('not available finger') :
         this.db.checkRemember())
-          .then(
-          val => val ? this.successRemember() : this.openPage(LoginPage),
-          err => this.openPage(LoginPage))
+        .then(
+        val => val ? this.successRemember() : this.openPage(LoginPage),
+        err => this.openPage(LoginPage))
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.oneSignal.startInit('77a9af35-365a-403f-9204-02f7370ac44e', '403307026230');
@@ -173,7 +171,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page);
   }
 
 }

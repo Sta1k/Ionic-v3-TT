@@ -29,13 +29,6 @@ export class ApiProvider {
 
     return this.http.post(this.url + 'login', body.toString(), options)
   }
-  // this.requestTasks = function () {//taskService.requestData заменить на APIService.requestTasks
-  //   // console.log(req);
-  //   return $http({
-  //     method: 'POST',
-  //     url: url + 'tasks'
-  //   });
-  // };
   requestTasks(id) {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -52,15 +45,6 @@ export class ApiProvider {
     body.set("user", id);
     return this.http.post(this.url + 'tasks', body, opts)
   }
-  // this.toggleState = function (id) {//taskToggle.toggleState to APIService.toggleState
-  //   return $http({
-  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //     method: 'POST',
-  //     data: $httpParamSerializerJQLike({id: id}),
-  //     // permissions: ['http://172.16.3.141/'],
-  //     url: url + 'toggle'
-  //   })
-  // };
   toggleState(id) {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -70,8 +54,8 @@ export class ApiProvider {
     let body = new URLSearchParams();
 
     body.set("id", id);
-    this.http.post(this.url + 'tasks', body.toString(), options)
-      .subscribe((event: Response) => console.log(event));
+    return this.http.post(this.url + 'toggle', body.toString(), options)
+      // .subscribe((event: Response) => console.log(event));
   }
   // this.TaskCreate = function (object) {//createTask.TaskCreate to APIService.TaskCreate
 
@@ -107,27 +91,6 @@ export class ApiProvider {
     body.set("month", obj.month);
     return this.http.post(this.url + 'Statistic', body, opts)
   }
-  // this.Statistic = function (obj) {
-  //   console.log(obj);
-  //   if (!obj) {
-  //     return $http({
-  //       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //       method: 'POST',
-  //       data: $httpParamSerializerJQLike({}),
-  //       url: url + 'Statistic'
-  //     })
-  //   } else {
-  //     return $http({
-  //       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //       method: 'POST',
-  //       data: $httpParamSerializerJQLike({
-  //         user: obj.user,
-  //         year: obj.year,
-  //         month: obj.month
-  //       }),
-  //       url: url + 'Statistic'
-  //     })
-  //   }
 
   // };
   // this.logout = function () {
@@ -140,41 +103,42 @@ export class ApiProvider {
   //     url: url + 'logout'
   //   })
   // };
-  // this.teamStatus = function () {
-  //   return $http({
-  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //     method: 'POST',
-  //     data: $httpParamSerializerJQLike({
-  //       //data
-  //     }),
-  //     url: url + 'teamStatus'
-  //   })
-  // };
+  teamStatus() {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': '*/*'
+    });
+    let options = new RequestOptions({ headers: headers });
+    let body = new URLSearchParams();
 
-  // this.TaskUpdate = function (object) {//createTask.TaskCreate to APIService.TaskCreate
+    // body.set("id", id);
+    return this.http.post(this.url + 'teamStatus', body.toString(), options)
+      // .subscribe((event: Response) => console.log(event));
+  }
+  taskUpdate(obj) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': '*/*'
+    });
+    let options = new RequestOptions({ headers: headers });
+    let body = new URLSearchParams();
 
-  //   // console.log(req);
-  //   return $http({
-  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //     method: 'POST',
-  //     data: $httpParamSerializerJQLike({
-  //       id: object.id
-  //     }),
-  //     url: url + 'getTaskModel'
-  //   })
-  // };
-  // this.TaskDelete = function (object) {//createTask.TaskCreate to APIService.TaskCreate
+    body.set("id", obj.id);
+    return this.http.post(this.url + 'getTaskModel', body.toString(), options)
+      // .subscribe((event: Response) => console.log(event));
+  }
+  taskDelete(obj) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': '*/*'
+    });
+    let options = new RequestOptions({ headers: headers });
+    let body = new URLSearchParams();
 
-  //   // console.log(req);
-  //   return $http({
-  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //     method: 'POST',
-  //     data: $httpParamSerializerJQLike({
-  //       id: object.id
-  //     }),
-  //     url: url + 'deleteTask'
-  //   })
-  // };
+    body.set("id", obj.id);
+    return this.http.post(this.url + 'deleteTask', body.toString(), options)
+      // .subscribe((event: Response) => console.log(event));
+  }
 }
 
 
