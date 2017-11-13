@@ -71,7 +71,6 @@
       "cordova-plugin-whitelist": {},
       "cordova-sqlite-storage": {},
       "ionic-plugin-keyboard": {},
-      "mx.ferreyra.callnumber": {},
       "cordova-sms-plugin": {},
       "de.appplant.cordova.plugin.local-notification": {},
       "onesignal-cordova-plugin": {}
