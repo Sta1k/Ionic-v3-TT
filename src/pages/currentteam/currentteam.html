@@ -8,5 +8,21 @@
 
 
 <ion-content padding>
-
+  <div class="titlePage">
+    <div>
+      <h3>Status of team</h3>
+    </div>
+  </div>
+  <div class="teamPage">
+    <h4 ng-bind="team.title"></h4>
+  </div>
+  <ion-list>
+    <ion-item class="element" *ngFor='let user of team.users' (click)='showUser(user)'>
+      <div class="name">{{user.name}}</div>
+      <div class="right">
+        <div [ngClass]="{dotgreen: user.status == 'Working'}" class="dot"></div>
+        <span>{{user.status||'Not working'}}</span>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

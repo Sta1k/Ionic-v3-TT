@@ -1,3 +1,19 @@
 page-team {
-
+    ion-item{
+        height:60px;
+        display: inherit;
+        border-radius: 5px;
+        margin: 0 0 5px 0!important
+    }
+    .name{
+        width: 30%;
+        white-space: normal;
+        overflow: hidden;
+    }
+    .element{
+        vertical-align: center;
+    }
+    ion-content.content{
+        background: #e1e1e1
+    }
 }

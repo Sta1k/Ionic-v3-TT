@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { DataProvider } from '../../providers/data/data';
+import { CurrentteamPage } from '../currentteam/currentteam'
 import 'rxjs/add/operator/toPromise';
 import * as _ from 'underscore';
 /**
@@ -17,20 +18,45 @@ import * as _ from 'underscore';
   templateUrl: 'team.html',
 })
 export class TeamPage {
-
+  allUsers;
+  allData;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public api: ApiProvider,
     public data: DataProvider) {
-     
-  }
-  
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamPage');
-    this.api.requestStatistic(null).subscribe(res=>console.log(res))
-  }
-  showTeam() {
 
+  }
+
+  ionViewDidLoad() {
+    let transformArr = (o) => {
+      return { id: 255, title: 'All users', users: o };
+    };
+    console.log('ionViewDidLoad TeamPage');
+    this.api.requestStatistic(null)
+      .subscribe((res) => {
+        this.allUsers = _.pluck(res.json().data, 'user')
+        console.log('allusers', this.allUsers)
+      });
+    this.api.teamStatus()
+      .subscribe((res) => {
+        let r = _.toArray(res.json());
+        this.allData = _.filter(r, (obj)=> {
+          return !_.isArray(obj) 
+        })
+        console.log(r, this.allData)
+        this.allData.push({ id:255,
+          title:'All Users',
+          users:this.allUsers})
+      })
+  }
+
+
+ 
+
+
+  showTeam(team) {
+    console.log(team)
+    this.navCtrl.setRoot(CurrentteamPage, team)
   }
 }

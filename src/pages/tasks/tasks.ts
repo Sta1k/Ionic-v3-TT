@@ -28,7 +28,11 @@ export class TasksPage {
     private api: ApiProvider,
     public data: DataProvider,
     public event: Events) {
-    this.event.subscribe('update', (tasks) => this.userTasks = tasks)
+      // this.navParams.data
+      // ?
+      // this.userTasks=this.navParams.data
+      // :
+      this.event.subscribe('update', (tasks) => this.userTasks = tasks)
 
   }
 

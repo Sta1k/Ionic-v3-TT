@@ -1,3 +1,30 @@
 page-currentteam {
-
+    .dot {
+        border-radius: 5px;
+        margin-top: 3px;
+        width: 10px;
+        background-color: #ff0005;
+        height: 10px;
+        display: inline-block;
+      }
+      .dotgreen{
+        background-color: #00c100 !important;
+      }
+      ion-content.content{
+          background-color: #e1e1e1
+      }
+      ion-item{
+        height:60px;
+        display: inherit;
+        border-radius: 5px;
+        margin: 0 0 5px 0!important
+    }
+    .name{
+        width: 50%;
+        float: left;
+    }
+    .right{
+        width: 35%;
+        float: right;
+    }
 }

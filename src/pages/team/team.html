@@ -13,4 +13,9 @@
           <h3>Teams</h3>
         </div>
       </div>
+      <ion-list>
+        <ion-item class="element" *ngFor='let team of allData' (click)='showTeam(team)'>
+            <div class="name">{{team.title}}</div>
+        </ion-item>
+      </ion-list>
 </ion-content>
