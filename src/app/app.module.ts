@@ -13,6 +13,7 @@ import { OptionsPage } from '../pages/options/options';
 import { CurrentteamPage } from '../pages/currentteam/currentteam';
 import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks';
+import { MemberTasksPage } from '../pages/member-tasks/member-tasks';
 // import {ApiService} from './shared/api.service'
 import { OneSignal } from '@ionic-native/onesignal';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -40,6 +41,7 @@ import { PipesModule } from '../pipes/pipes.module'
     CreatePage,
     ContactsPage,
     HeadComponent,
+    MemberTasksPage
   
   ],
   imports: [
@@ -62,7 +64,8 @@ import { PipesModule } from '../pipes/pipes.module'
     StatisticPage,
     OptionsPage,
     CreatePage,
-    ContactsPage
+    ContactsPage,
+    MemberTasksPage
   ],
   providers: [
     StatusBar,

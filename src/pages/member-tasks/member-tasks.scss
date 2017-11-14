@@ -1,0 +1,68 @@
+page-member-tasks {
+    .head{
+        background-color: #282d39
+    }
+    .name{
+        width: 30%;
+        white-space: normal;
+        overflow: hidden;
+    }
+    .time{
+        width: 47%;
+    }
+    .element{
+        vertical-align: center;
+    }
+    // .element ion-icon{
+    //     width: 15px;
+    //     height: 15px;
+    //     color: #282d28;
+    // }
+    ion-item{
+        height:60px;
+        display: inherit;
+        border-radius: 5px;
+        margin: 0 0 5px 0!important
+    }
+    .active{
+        background-color: #282d39;
+        color: white;
+    }
+    .active .hour{
+        border-color: #282d39;
+        background-color: #ffffff;
+        color: #282d39;
+    }
+    .active .hour p{
+        color: #282d39;
+    }
+    ion-content{
+        margin-top: 56px;
+        background-color:#e1e1e1;
+    }
+    .content-md{
+        background-color:#e1e1e1;
+    }
+    .element ion-label{
+        display: -webkit-box
+    }
+    .hour {
+        
+          border-style: solid;
+          border-color: #FFFFFF;
+          border-width: 1px;
+          text-align: center;
+          color: #ffffff;
+          width: 40px;
+          background-color: #282d39;
+          display: inline-block;
+          border-radius: 3px;
+        }
+        
+        .hour p {
+          color: #FFFFFF;
+        }
+        ion-item-sliding{
+            background: #e1e1e1!important;
+        }
+}

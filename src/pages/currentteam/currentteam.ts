@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TasksPage } from '../../pages/tasks/tasks'
+import { MemberTasksPage } from '../../pages/member-tasks/member-tasks'
 /**
  * Generated class for the CurrentteamPage page.
  *
@@ -22,6 +22,6 @@ export class CurrentteamPage {
     console.log('ionViewDidLoad CurrentteamPage');
   }
   showUser(user) {
-    this.navCtrl.setRoot(TasksPage, user)
+    this.navCtrl.setRoot(MemberTasksPage, user)
   }
 }
