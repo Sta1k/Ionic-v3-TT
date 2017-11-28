@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, Events, AlertController } from 'ionic-angular';
+import { IonicPage, ToastController,NavController, NavParams, PopoverController, Events, AlertController } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { DataProvider } from '../../providers/data/data';
 import { SingleTaskPage } from '../single-task/single-task'
@@ -19,6 +19,7 @@ import * as _ from 'underscore';
 })
 export class MemberTasksPage {
   userTasks: any;
+  member
   interval
   constructor(
     private alert: AlertController,
@@ -27,15 +28,17 @@ export class MemberTasksPage {
     public navParams: NavParams,
     private api: ApiProvider,
     public data: DataProvider,
-    public event: Events) {
+    public event: Events,
+    public toast: ToastController) {
       // this.navParams.data
       // ?
-      // this.userTasks=this.navParams.data
+      this.member=this.navParams.data;
+      console.log(this.member)
       // :
-      this.event.subscribe('update', (tasks) => this.userTasks = tasks)
+      this.event.subscribe('member', (tasks) => this.userTasks = tasks)
 
   }
-
+  response: any;
   ionViewWillEnter() {
     this.reqServ()
 
@@ -49,9 +52,55 @@ export class MemberTasksPage {
   ionViewDidLoad() {
     // console.log('ionViewDidLoad TasksPage');
   }
-  openTask(task) {
-    console.log(task)
-    this.navCtrl.setRoot(SingleTaskPage, task)
+  // openTask(task) {
+  //   console.log(task)
+  //   this.navCtrl.setRoot(SingleTaskPage, task)
+  // }
+  toggle(task) {
+    this.api.toggleState(task.id)
+      .subscribe((res) => {
+        this.response = res.json()
+        console.log(this.response)
+        !this.response.started && this.response.success ?
+          this.stop(task)
+          :
+          this.response.started && this.response.success ?
+            this.start(task)
+            :
+            this.checkStarted()
+      })
+  }
+  stop(task) {
+    let result;
+    let toast = this.toast.create({
+      message:  `${task.name} stopped`,
+      duration: 2000,
+      position: 'bottom'
+    });
+
+    toast.present();
+    this.data.clear();
+    this.api.requestTasks(this.member.id).toPromise()
+      .then(res => result = res.json())
+      .then(result => {
+        !result.success ? console.log(result) : this.bindData(result)
+      })
+
+  }
+  start(task) {
+    let result;
+    let toast = this.toast.create({
+      message: `${task.name}  started`,
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+    task.current=true;
+    this.api.requestTasks(this.member.id).toPromise()
+    .then(res => result = res.json())
+    .then(result => {
+      !result.success ? console.log(result) : this.bindData(result)
+    })
   }
   onDelete(task) {
     let result,
@@ -90,21 +139,21 @@ export class MemberTasksPage {
   }
   reqServ() {
     let result;
-    this.api.requestTasks(false).toPromise()
+    this.api.requestTasks(this.member.id).toPromise()
       .then(res => result = res.json())
       .then(result => {
         !result.success ? console.log(result) : this.bindData(result)
       })
   }
   bindData(r) {
-    this.data.userTasks = r.tasks;
-    this.userTasks = this.data.userTasks;
+    this.data.memberTasks = r.tasks;
+    this.userTasks = this.data.memberTasks;
     this.checkStarted();
   }
 
   checkStarted() {
-    let obj: Object = _.findWhere(this.data.userTasks, { current: true });
-    console.log(this.data.userTasks, obj)
-    obj.hasOwnProperty('current') ? this.data.startTimer(obj) : console.log('no active task')
+    let obj: Object = _.findWhere(this.data.memberTasks, { current: true });
+    console.log(this.data.memberTasks, obj)
+    obj.hasOwnProperty('current') ? this.data.startOT(obj) : console.log('no active task')
   }
 }

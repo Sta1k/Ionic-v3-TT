@@ -7,14 +7,25 @@
 <headOn></headOn>
 
 <ion-content padding ng-if="userTasks">
-  <div class="titlePage">
-    <div>
-      <h3>My Tasks</h3>
+  <!-- <div class="titlePage">
+    <div class="avatar">
+      <img ng-src="{{user.userImage}}">
     </div>
-  </div>
+    <div class="name">
+      <h3 ng-bind-html="user.name | br"></h3>
+    </div>
+    <div class="call_icon" ng-if="user.phone">
+      <a ng-href="tel:{{user.phone}}">
+        <img src="img/telephone-icon.png">
+      </a>
+    </div>
+    <div class="call_icon" ng-if="!user.phone">
+      <img src="img/telephone-icon-disabled.png">
+    </div> -->
+  <!-- </div> -->
   <ion-list>
     <ion-item-sliding *ngFor='let task of userTasks'>
-      <ion-item class="element" (click)='openTask(task)'  [ngClass]="{active:task.current==true}">
+      <ion-item class="element" (click)='openTask(task)' [ngClass]="{active:task.current==true}">
         <div class="name">{{task.name|slice}}</div>
         <div class="time" [innerHtml]="task.time|time"></div>
         <!-- <div class="arrow"> -->
@@ -26,9 +37,9 @@
         </button>
       </ion-item>
       <ion-item-options side="right">
-          <button ion-button (click)="onDelete(task)">Del</button>
-          <button ion-button color="danger" (click)="onEdit(task)">Edit</button>
-        </ion-item-options>
+        <button ion-button (click)="onDelete(task)">Del</button>
+        <button ion-button color="danger" (click)="onEdit(task)">Edit</button>
+      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 </ion-content>

@@ -21,6 +21,7 @@ import { CurrentteamPage } from '../pages/currentteam/currentteam';
 import { User } from '../app/shared/classes'
 import 'rxjs/add/operator/toPromise';
 import { Subscription } from 'rxjs';
+import { Geolocation } from '@ionic-native/geolocation'
 import * as _ from 'underscore';
 @Component({
   templateUrl: 'app.html',
@@ -43,6 +44,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public data: DataProvider,
     private api: ApiProvider,
+    private geo:Geolocation
   ) {
     this.onResume = platform.resume.subscribe(() => {
       // do something meaningful when the app is put in the foreground
@@ -114,8 +116,6 @@ export class MyApp {
       username: this.db.getName(),
       password: this.db.getPass()
     }
-
-
   }
   defaultLang(e) {
     console.log(e)
@@ -167,7 +167,25 @@ export class MyApp {
       this.oneSignal.endInit();
     });
   }
+  getPos() {
+    // this.presentToast('App getting your Position')
+    let options = {
+      enableHighAccuracy: true
+    };
+    this.geo.getCurrentPosition(options)
+      .then((position) => {
+        console.log('Geolocation successful');
+        // this.presentToast('Position saved')
+        this.data.position = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
 
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+
+  }
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario

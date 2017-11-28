@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpModule } from '@angular/http';
+import { HttpModule,Http,HttpClientModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { MyApp } from './app.component';
 import { SingleTaskPage } from '../pages/single-task/single-task';
@@ -27,7 +27,12 @@ import { ApiProvider } from '../providers/api/api';
 import { DataProvider } from '../providers/data/data';
 import { HeadComponent } from '../components/head/head';
 import { PipesModule } from '../pipes/pipes.module'
+import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+export function createTranslateLoader(http: HttpClientModule) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 @NgModule({
   declarations: [
     MyApp,
@@ -45,6 +50,13 @@ import { PipesModule } from '../pipes/pipes.module'
   
   ],
   imports: [
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
+    }),
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
