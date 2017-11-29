@@ -1,8 +1,23 @@
 <ion-menu class="sidemenu" side="right" [content]="content">
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.component)">
-       <img class="menu_img" src='{{p.img}}'> {{p.title}}
+      <button menuClose ion-item (click)="openPage(TeamPage)">
+        <img class="menu_img" src='assets/img/ico/people.png'> <span>{{'menu_status_of_team'|translate}}</span>
+      </button>
+      <button menuClose ion-item (click)="openPage(TasksPage)">
+        <img class="menu_img" src='assets/img/ico/brief.png'> <span>{{'menu_tasks'|translate}}</span>
+      </button>
+      <button menuClose ion-item (click)="openPage(CreatePage)">
+        <img class="menu_img" src='assets/img/ico/plus.png'> <span>{{'menu_create'|translate}}</span>
+      </button>
+      <button menuClose ion-item (click)="openPage(StatisticPage)">
+        <img class="menu_img" src='assets/img/ico/stat.png'> <span>{{'menu_stat'|translate}}</span>
+      </button>
+      <button menuClose ion-item (click)="openPage(OptionsPage)">
+        <img class="menu_img" src='assets/img/ico/gear.png'><span>{{'menu_pref'|translate}}</span> 
+      </button>
+      <button menuClose ion-item (click)="openPage(LoginPage)">
+        <img class="menu_img" src='assets/img/ico/logout.png'> <span>{{'menu_logout'|translate}}</span>
       </button>
     </ion-list>
   </ion-content>

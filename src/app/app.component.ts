@@ -22,6 +22,7 @@ import { User } from '../app/shared/classes'
 import 'rxjs/add/operator/toPromise';
 import { Subscription } from 'rxjs';
 import { Geolocation } from '@ionic-native/geolocation'
+import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'underscore';
 @Component({
   templateUrl: 'app.html',
@@ -44,7 +45,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public data: DataProvider,
     private api: ApiProvider,
-    private geo:Geolocation
+    private geo:Geolocation,
+    public translate:TranslateService
   ) {
     this.onResume = platform.resume.subscribe(() => {
       // do something meaningful when the app is put in the foreground
@@ -119,19 +121,19 @@ export class MyApp {
   }
   defaultLang(e) {
     console.log(e)
-    this.data.lang = this.platform.lang()
+    this.translate.setDefaultLang(this.platform.lang())
   }
   initLang(i) {
     console.log(i)
     if ((i !== undefined) && (i !== null)) {
-      this.data.lang = i
+      this.translate.setDefaultLang(i);
     } else {
       this.defaultLang({ e: null })
     }
   }
   initializeApp() {
     this.platform.ready().then(() => {
-
+this.getPos();
       let result;
       this.db.readLang()
         .then(obj => this.initLang(obj))

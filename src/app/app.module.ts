@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpModule,Http,HttpClientModule } from '@angular/http';
+import { HttpModule,Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { MyApp } from './app.component';
 import { SingleTaskPage } from '../pages/single-task/single-task';
@@ -29,8 +29,11 @@ import { HeadComponent } from '../components/head/head';
 import { PipesModule } from '../pipes/pipes.module'
 import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {HttpClientModule,HttpClient} from '@angular/common/http'
+import { Geolocation } from '@ionic-native/geolocation';
+// import { from } from 'rxjs/observable/from';
 
-export function createTranslateLoader(http: HttpClientModule) {
+export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
@@ -62,6 +65,7 @@ export function createTranslateLoader(http: HttpClientModule) {
     HttpModule,
     FormsModule,
     PipesModule,
+    HttpClientModule,
     IonicStorageModule.forRoot()
 
   ],
@@ -80,6 +84,7 @@ export function createTranslateLoader(http: HttpClientModule) {
     MemberTasksPage
   ],
   providers: [
+    Geolocation,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
