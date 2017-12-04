@@ -50,7 +50,7 @@ export class SingleTaskPage {
       duration: 2000,
       position: 'bottom'
     });
-
+    this.task.current=false;
     toast.present();
     this.data.clear();
     this.api.requestTasks(false).toPromise()

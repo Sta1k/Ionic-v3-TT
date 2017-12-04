@@ -14,15 +14,15 @@
     </div>
   </div>
   <ion-item>
-    <ion-label color="primary" floating>Title:</ion-label>
+    <ion-label color="dark" floating>{{'create_title'|translate}}</ion-label>
     <ion-input></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" floating>Description:</ion-label>
+    <ion-label color="dark" floating>{{'create_desc'|translate}}</ion-label>
     <ion-textarea></ion-textarea>
   </ion-item>
   <ion-item>
-    <ion-label>Associate with:</ion-label>
+    <ion-label color="dark">{{'create_assign'|translate}}</ion-label>
     <ion-select>
       <ion-option value="f">Female</ion-option>
       <ion-option value="m">Male</ion-option>
@@ -33,10 +33,10 @@
 <ion-footer>
   <ion-toolbar>
     <button ion-button block>
-      Save
+        {{'create_button'|translate}}
     </button>
     <button ion-button block>
-      Cancel
+        {{'clear'|translate}}
     </button>
   </ion-toolbar>
 </ion-footer>

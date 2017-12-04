@@ -13,11 +13,10 @@ page-tasks {
     .element{
         vertical-align: center;
     }
-    // .element ion-icon{
-    //     width: 15px;
-    //     height: 15px;
-    //     color: #282d28;
-    // }
+    .element ion-icon{
+        font-size: 2em;
+        margin-left: 50px;
+    }
     ion-item{
         height:60px;
         display: inherit;

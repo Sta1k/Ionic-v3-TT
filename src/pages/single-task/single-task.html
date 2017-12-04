@@ -5,16 +5,15 @@
   </div>
   <ion-card>
     <ion-card-header class="description">
-      Description:
+      {{'description'|translate}}
     </ion-card-header>
     <ion-card-content class="description">
       {{task.description}}
     </ion-card-content>
   </ion-card>
-  <!-- <ion-item class="description">{{task.description}}</ion-item> -->
   <div class="startStopOrder" (click)="toggle()">
-    <img class="pause" *ngIf='task.current' src="img/pause.png">
-    <img class="pause" *ngIf='!task.current' src="img/play.png">
+    <img class="pause" *ngIf='task.current' src="assets/img/pause.png">
+    <img class="pause" *ngIf='!task.current' src="assets/img/play.png">
   </div>
 
   <ion-item class="time">{{task.time|headTime}}</ion-item>

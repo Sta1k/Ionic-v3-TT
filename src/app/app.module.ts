@@ -14,7 +14,6 @@ import { CurrentteamPage } from '../pages/currentteam/currentteam';
 import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks';
 import { MemberTasksPage } from '../pages/member-tasks/member-tasks';
-// import {ApiService} from './shared/api.service'
 import { OneSignal } from '@ionic-native/onesignal';
 import { StatusBar } from '@ionic-native/status-bar';
 import { LocalNotifications } from '@ionic-native/local-notifications';
@@ -91,7 +90,6 @@ export function createTranslateLoader(http: Http) {
     Database,
     FingerprintAIO,
     Device,
-    // Storage,
     OneSignal,
     HttpModule,
     ApiProvider,

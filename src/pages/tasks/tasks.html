@@ -9,26 +9,29 @@
 <ion-content padding ng-if="userTasks">
   <div class="titlePage">
     <div>
-      <h3>My Tasks</h3>
+      <h3>{{'menu_tasks'|translate}}</h3>
     </div>
   </div>
   <ion-list>
     <ion-item-sliding *ngFor='let task of userTasks'>
-      <ion-item class="element" (click)='openTask(task)'  [ngClass]="{active:task.current==true}">
+      <ion-item class="element" (click)='openTask(task)' [ngClass]="{active:task.current==true}">
         <div class="name">{{task.name|slice}}</div>
         <div class="time" [innerHtml]="task.time|time"></div>
         <!-- <div class="arrow"> -->
-        <ion-icon name="ion-chevron-right">
+        <ion-icon name="ios-arrow-forward">
         </ion-icon>
         <!-- </div> -->
-        <button ion-button icon-only>
-          <ion-icon name="ion-chevron-right"></ion-icon>
-        </button>
+
       </ion-item>
       <ion-item-options side="right">
-          <button ion-button (click)="onDelete(task)">Del</button>
-          <button ion-button color="danger" (click)="onEdit(task)">Edit</button>
-        </ion-item-options>
+        <button ion-button (click)="onDelete(task)">
+          <ion-icon name="ios-trash-outline">
+          </ion-icon>
+        </button>
+        <button ion-button color="danger" (click)="onEdit(task)">
+          <ion-icon name='md-create'></ion-icon>
+        </button>
+      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
