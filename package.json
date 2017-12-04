@@ -33,10 +33,10 @@
     "@ionic-native/status-bar": "3.12.1",
     "@ionic/storage": "^2.1.3",
     "@ngx-translate/core": "^9.0.1",
-    "@ngx-translate/http-loader": "^2.0.0",
+    "@ngx-translate/http-loader": "^0.1.0",
     "@types/underscore": "^1.8.5",
-    "call-number": "~0.0.2",
     "cordova-android": "6.3.0",
+    "cordova-browser": "5.0.1",
     "cordova-ios": "4.5.4",
     "cordova-plugin-add-swift-support": "^1.7.0",
     "cordova-plugin-compat": "^1.2.0",
@@ -53,7 +53,6 @@
     "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "^3.0.0",
-    "mx.ferreyra.callnumber": "0.0.2",
     "onesignal-cordova-plugin": "^2.2.2",
     "rxjs": "^5.5.2",
     "sw-toolbox": "3.6.0",
@@ -69,7 +68,8 @@
   "cordova": {
     "platforms": [
       "android",
-      "ios"
+      "ios",
+      "browser"
     ],
     "plugins": {
       "cordova-plugin-console": {},
@@ -82,11 +82,9 @@
       "ionic-plugin-keyboard": {},
       "cordova-sms-plugin": {},
       "onesignal-cordova-plugin": {},
-      "mx.ferreyra.callnumber": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      },
-      "call-number": {}
+      }
     }
   }
 }

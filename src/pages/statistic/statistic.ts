@@ -18,12 +18,12 @@ import * as _ from 'underscore';
 })
 export class StatisticPage {
   r
-  table:boolean=false;
+  table: boolean = false;
   differ
   iter
-  role=this.data.userType
-  userData
-  userList: any[];
+  role = this.data.userType
+  userList=_.pluck(this.data.statData.data, 'user')
+  userData=_.findWhere(this.userList,{"id":this.data.userId})
   monthData = [
     { id: 1, name: 'January', selected: false },
     { id: 2, name: 'February', selected: false },
@@ -48,11 +48,46 @@ export class StatisticPage {
     public navParams: NavParams,
     public api: ApiProvider,
     public data: DataProvider) {
+      
+      
+      console.log('userList->',this.userList);
     this.selectMonth();
-
+    // this.api.requestStatistic(null).subscribe(res => {
+    //   let resp = res.json()
+    //   console.log(resp)
+    //   resp.data.length>1
+    //   ?
+    //   this.checkType(resp)
+    //   :
+    //   this.userData = [
+    //     { name: resp.data[0].user.name, 
+    //       id: resp.data[0].user.id, 
+    //       selected: true }
+    //   ]
+    //   this.r = res.json().data[0];
+    //   console.log(resp);
+    //   let wh = _.where(this.r.user.days, { day_type: 0 }).length * 8 * 60 * 60,
+    //     sumHours = _.compact(_.pluck(this.r.user.days, 'time'));
+    //   sumHours ? this.iter = sumHours.reduce(function (sum, cur) {
+    //     return Number(sum) + Number(cur)
+    //   }) : this.iter = 0
+    //   this.table = true
+    //   this.differ = wh - this.iter
+    // })
   }
+  checkType(r) {
+    
+    this.userList=r.data
+     this.userData = _.findWhere(this.userList, { id: this.data.userId })
+     console.log(r, 'userlist->', this.userList)
+  }
+  ionViewWillEnter(){
+   
 
+  
+  }
   ionViewDidLoad() {
+    console.log(this.userData)
     //console.log('Month: ');
   }
   changeUser(val) {
@@ -65,25 +100,8 @@ export class StatisticPage {
     console.log(val)
   }
   selectMonth() {
-    let obj: any = _.findWhere(this.monthData, { id: new Date().getMonth()+1 }).selected = true;
+    let obj: any = _.findWhere(this.monthData, { id: new Date().getMonth() + 1 }).selected = true;
     console.log(obj)
-    this.api.requestStatistic(null).subscribe(res => {
-      this.r = res.json().data[0];
-      console.log(this.r.user.days);
-     let wh = _.where(this.r.user.days, {day_type: 0}).length * 8 * 60 * 60,
-      sumHours=_.compact(_.pluck(this.r.user.days, 'time'));
-      sumHours?this.iter=sumHours.reduce(function (sum, cur) {
-        return Number(sum) + Number(cur)
-      }):this.iter=0
-      this.table=true
-      this.differ=wh-this.iter
-      // r.data.length>1?this.userList=r.data:
-      // this.userData = [
-      //   { name: r.data[0].user.name, 
-      //     id: r.data[0].user.id, 
-      //     selected: true }
-      // ]
-
-    })
+    
   }
 }

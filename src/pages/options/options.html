@@ -10,12 +10,12 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label>Fingerprint authorization</ion-label>
+      <ion-label>{{'login_touchid'|translate}}</ion-label>
       <ion-toggle [(ngModel)]="checkbox.checked" (ionChange)='toggleState()'></ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-img class="icon_opt" src="img/ico/lang_icon.png"></ion-img>
-      <ion-label>Language</ion-label>
+      <ion-img class="icon_opt" src="assets/img/ico/lang_icon.png"></ion-img>
+      <ion-label>{{'language'|translate}}</ion-label>
       <ion-select [(ngModel)]="langData.name" (ionChange)=changeLang($event) >
         <ion-option *ngFor="let l of langData" [selected]='l.selected' [value]='l.small'>{{l.name}}</ion-option>
       </ion-select>

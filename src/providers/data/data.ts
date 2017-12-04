@@ -19,6 +19,8 @@ export class DataProvider {
     console.log('DataProvider Loaded');
     this.events.subscribe('update', (tasks) => this.userTasks = tasks)
   }
+  statData;
+  userId;
   userType: any;
   position:any;
   userList: any;
@@ -87,26 +89,3 @@ export class DataProvider {
     });
   }
 }
-// APP
-// .factory('updateTaskTime', function ($interval, dataService) {//$scope нельзя передавать в сервисы
-//   return {
-//     Timer: null,
-//     StartTimer: function (task) {
-//       var obj = _.findWhere(dataService.tasksList, {id: task.id});
-//       this.Timer = $interval(function () {
-//         obj.time++;
-//         var arr = _.pluck(dataService.tasksList, 'time');
-//         summa = function (m) {
-//           for (var s = 0, k = m.length; k; s += m[--k]);
-//           dataService.AllWorkedTime = s;
-//         };
-//         summa(arr);
-//       }, 1000);
-//     },
-//     StopTimer: function (task) {
-//       if (angular.isDefined(this.Timer)) {
-//         $interval.cancel(this.Timer);
-//       }
-//     }
-//   }
-// });

@@ -8,17 +8,17 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { Device } from '@ionic-native/device';
 import { DataProvider } from '../providers/data/data'
 import { OneSignal } from '@ionic-native/onesignal';
-import { SingleTaskPage } from '../pages/single-task/single-task';
+// import { SingleTaskPage } from '../pages/single-task/single-task';
 
 import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks'
 import { TeamPage } from '../pages/team/team';
 import { StatisticPage } from '../pages/statistic/statistic'
-import { ContactsPage } from '../pages/contacts/contacts';
+// import { ContactsPage } from '../pages/contacts/contacts';
 import { CreatePage } from '../pages/create/create';
 import { OptionsPage } from '../pages/options/options';
-import { CurrentteamPage } from '../pages/currentteam/currentteam';
-import { User } from '../app/shared/classes'
+// import { CurrentteamPage } from '../pages/currentteam/currentteam';
+// import { User } from '../app/shared/classes'
 import 'rxjs/add/operator/toPromise';
 import { Subscription } from 'rxjs';
 import { Geolocation } from '@ionic-native/geolocation'
@@ -58,12 +58,12 @@ export class MyApp {
     });
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Team', component: TeamPage, img: 'img/ico/people.png' },
-      { title: 'Tasks', component: TasksPage, img: 'img/ico/brief.png' },
-      { title: 'Create', component: CreatePage, img: 'img/ico/plus.png' },
-      { title: 'Statistic', component: StatisticPage, img: 'img/ico/stat.png' },
-      { title: 'Options', component: OptionsPage, img: 'img/ico/gear.png' },
-      { title: 'Login', component: LoginPage, img: 'img/ico/logout.png' },
+      { title: "menu_status_of_team", component: TeamPage, img: 'assets/img/ico/people.png' },
+      { title: "menu_tasks", component: TasksPage, img: 'assets/img/ico/brief.png' },
+      { title: "menu_create", component: CreatePage, img: 'assets/img/ico/plus.png' },
+      { title: "menu_stat", component: StatisticPage, img: 'assets/img/ico/stat.png' },
+      { title: "menu_pref", component: OptionsPage, img: 'assets/img/ico/gear.png' },
+      { title: "menu_logout", component: LoginPage, img: 'assets/img/ico/logout.png' },
     ];
     this.initializeApp();
   }
@@ -95,6 +95,7 @@ export class MyApp {
   private setUserType(r) {
     let result
     this.data.userType = r.type;
+    this.data.userId=r.id;
     this.api.requestTasks(false)
       .toPromise()
       .then(res => result = res.json())
@@ -106,6 +107,7 @@ export class MyApp {
 
     this.data.userTasks = r.tasks;
     this.username = r.user.name;
+    this.getInformation()
     this.data.AllWorkedTime = this.summa(_.pluck(this.data.userTasks, 'time'))
     this.data.userType > 0 ? this.openPage(TeamPage) : this.openPage(TasksPage);
   }
@@ -122,22 +124,22 @@ export class MyApp {
   defaultLang(e) {
     console.log(e)
     this.translate.setDefaultLang(this.platform.lang())
+    this.data.lang=this.platform.lang()
   }
   initLang(i) {
     console.log(i)
     if ((i !== undefined) && (i !== null)) {
       this.translate.setDefaultLang(i);
+      this.data.lang=i
     } else {
       this.defaultLang({ e: null })
     }
   }
   initializeApp() {
     this.platform.ready().then(() => {
-this.getPos();
+      this.getPos();
       let result;
-      this.db.readLang()
-        .then(obj => this.initLang(obj))
-        .catch(e => this.defaultLang(e))
+     
       this.initUser()
       this.db.checkFinger().then(res => res ?
         this.faio.isAvailable() ?
@@ -153,7 +155,9 @@ this.getPos();
         .then(
         val => val ? this.successRemember() : this.openPage(LoginPage),
         err => this.openPage(LoginPage))
-      this.statusBar.styleDefault();
+      
+      
+        this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.oneSignal.startInit('77a9af35-365a-403f-9204-02f7370ac44e', '403307026230');
 
@@ -168,6 +172,9 @@ this.getPos();
       });
       this.oneSignal.endInit();
     });
+    this.db.readLang()
+    .then(obj => this.initLang(obj))
+    .catch(e => this.defaultLang(e))
   }
   getPos() {
     // this.presentToast('App getting your Position')
@@ -187,6 +194,13 @@ this.getPos();
         console.log('Error getting location', error);
       });
 
+  }
+  getInformation(){
+    this.api.requestStatistic(null)
+    .subscribe(res => {
+      this.data.statData = res.json()
+      console.log(this.data.statData)
+    })
   }
   openPage(page) {
     // Reset the content nav to have just this page

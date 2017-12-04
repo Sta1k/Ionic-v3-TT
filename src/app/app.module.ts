@@ -31,9 +31,9 @@ import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {HttpClientModule,HttpClient} from '@angular/common/http'
 import { Geolocation } from '@ionic-native/geolocation';
-// import { from } from 'rxjs/observable/from';
 
-export function createTranslateLoader(http: HttpClient) {
+
+export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
@@ -97,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
     ApiProvider,
     DataProvider,
     LocalNotifications,
+  
 
   ]
 })

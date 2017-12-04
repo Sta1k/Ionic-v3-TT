@@ -4,6 +4,7 @@ import { DataProvider } from '../../providers/data/data'
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { Database } from "../../providers/db/db"
 import * as _ from 'underscore';
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the OptionsPage page.
  *
@@ -22,7 +23,13 @@ export class OptionsPage {
     { name: 'English', small: 'en', selected: false },
     { name: 'German', small: 'de', selected: false },
     { name: 'Russian', small: 'ru', selected: false }]
-  constructor(private db: Database, private faio: FingerprintAIO, public data: DataProvider, public navCtrl: NavController, public event: Events, public navParams: NavParams) {
+  constructor(private db: Database,
+    private faio: FingerprintAIO,
+    public data: DataProvider,
+    public navCtrl: NavController,
+    public event: Events,
+    public navParams: NavParams,
+      public translate:TranslateService) {
     this.check()
     this.selectLang()
   }
@@ -58,13 +65,14 @@ export class OptionsPage {
   ionViewDidLoad() {
     console.log(this.data.lang);
   }
-  changeLang(val:any){
+  changeLang(val: any) {
     this.db.writeLang(val)
+    this.translate.use(val)
   }
   selectLang() {
     let obj: any = _.findWhere(this.langData, { selected: true });
-    obj?obj.selected=false:console.log('no obj')
-    _.findWhere(this.langData, { small: this.data.lang }).selected=true
+    obj ? obj.selected = false : console.log('no obj')
+    _.findWhere(this.langData, { small: this.data.lang }).selected = true
     this.db.writeLang(this.data.lang)
   }
 }
