@@ -13,11 +13,17 @@ page-member-tasks {
     .element{
         vertical-align: center;
     }
-    // .element ion-icon{
-    //     width: 15px;
-    //     height: 15px;
-    //     color: #282d28;
-    // }
+    .time > span {
+        position: relative;
+        bottom: 7px;
+    }
+    .element ion-icon{
+        font-size: 2em;
+        margin-left: 50px;
+    }
+    ion-item-options{
+        height: 60px;
+    }
     ion-item{
         height:60px;
         display: inherit;
@@ -48,21 +54,56 @@ page-member-tasks {
     }
     .hour {
         
-          border-style: solid;
-          border-color: #FFFFFF;
-          border-width: 1px;
-          text-align: center;
-          color: #ffffff;
-          width: 40px;
-          background-color: #282d39;
-          display: inline-block;
-          border-radius: 3px;
-        }
+        border-style: solid;
+        border-color: #FFFFFF;
+        border-width: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 40px;
+        background-color: #282d39;
+        display: inline-block;
+        border-radius: 3px;
+    }
         
-        .hour p {
-          color: #FFFFFF;
+    .hour p {
+        color: #FFFFFF;
+    }
+    ion-item-sliding{
+        background: #e1e1e1!important;
+    }
+    .avatar {
+        /*background-size: cover;*/
+        float: left;
+        width: 17%;
+        height: 160%;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
         }
-        ion-item-sliding{
-            background: #e1e1e1!important;
-        }
+    .avatar img {
+       
+        display: block;
+        margin: auto;
+        width: 100%;
+    }
+    .headname{
+        display: inline;
+    } 
+    tbody tr.userData {
+        background: #597EAA;
+        border-color: #597EAA;
+      }
+      .userData td {
+         
+        border-color: #597EAA;
+        text-align: left;
+        padding-left: 3%;
+      }
+      .teamPage table {
+        width: 100%;
+        line-height: 2em;
+        margin-bottom: 2%;
+        color: white;
+      }
 }

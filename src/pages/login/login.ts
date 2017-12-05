@@ -5,7 +5,7 @@ import { DataProvider } from '../../providers/data/data';
 import { Database } from '../../providers/db/db';
 import { TasksPage } from '../tasks/tasks'
 import 'rxjs/add/operator/toPromise';
-import {User} from '../../app/shared/classes'
+import { User } from '../../app/shared/classes'
 
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginPage /*implements OnInit*/ {
     private api: ApiProvider,
     public data: DataProvider,
     private db: Database) {
-
+    this.data.clearData()
   }
 
   onLogin(e: Event, login) {
@@ -33,17 +33,17 @@ export class LoginPage /*implements OnInit*/ {
       .toPromise()
       .then(res => result = res.json())
       .then(result => result.success
-        ? user.remember ? this.toDb(user,result):this.delDb(result):
+        ? user.remember ? this.toDb(user, result) : this.delDb(result) :
         console.log('Error: ', result))
 
     //.subscribe((event) => event.json())
 
   }
-  toDb(user,result){
-    this.db.writeRemember(user.username,user.password,user.remember);
+  toDb(user, result) {
+    this.db.writeRemember(user.username, user.password, user.remember);
     this.successLogin(result);
   }
-  delDb(result){
+  delDb(result) {
     this.db.delRemember();
     this.successLogin(result);
   }

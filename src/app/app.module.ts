@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpModule,Http } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { MyApp } from './app.component';
 import { SingleTaskPage } from '../pages/single-task/single-task';
@@ -26,12 +26,12 @@ import { ApiProvider } from '../providers/api/api';
 import { DataProvider } from '../providers/data/data';
 import { HeadComponent } from '../components/head/head';
 import { PipesModule } from '../pipes/pipes.module'
-import { TranslateModule,TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {HttpClientModule,HttpClient} from '@angular/common/http'
+import { HttpClientModule, HttpClient } from '@angular/common/http'
 import { Geolocation } from '@ionic-native/geolocation';
-
-
+import { CallNumber } from '@ionic-native/call-number';
+import { SMS } from '@ionic-native/sms';
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -49,7 +49,7 @@ export function createTranslateLoader(http: Http) {
     ContactsPage,
     HeadComponent,
     MemberTasksPage
-  
+
   ],
   imports: [
     TranslateModule.forRoot({
@@ -95,8 +95,8 @@ export function createTranslateLoader(http: Http) {
     ApiProvider,
     DataProvider,
     LocalNotifications,
-  
-
+    CallNumber,
+    SMS
   ]
 })
 export class AppModule {

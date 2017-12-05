@@ -34,6 +34,14 @@ export class DataProvider {
   clear() {
     clearInterval(this.Timer);
   }
+  clearData(){
+    this.userId=undefined;
+    this.statData=undefined;
+    this.userTasks=undefined;
+    this.userType=undefined;
+    this.userLogin=undefined;
+    
+  }
   startOT(task) {
     let obj: any = _.findWhere(this.memberTasks, { id: task.id });
 

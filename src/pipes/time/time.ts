@@ -23,8 +23,8 @@ if (Number(m) < 10)
   m = '0' + m;
 if (Number(s) < 10)
   s = '0' + s;
-let out = `<div  class="hour">${h}<p>hrs.</p></div> : 
-            <div class="hour">${m}<p>min.</p></div> :
+let out = `<div  class="hour">${h}<p>hrs.</p></div> <span>:</span> 
+            <div class="hour">${m}<p>min.</p></div> <span>:</span>
             <div class="hour">${s}<p>sec.</p></div>`;
 return  out;
   }

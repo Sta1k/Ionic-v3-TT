@@ -5,6 +5,8 @@ import { DataProvider } from '../../providers/data/data';
 import { SingleTaskPage } from '../single-task/single-task'
 import 'rxjs/add/operator/toPromise';
 import * as _ from 'underscore';
+import { CallNumber } from '@ionic-native/call-number';
+import { SMS } from '@ionic-native/sms';
 /**
  * Generated class for the TasksPage page.
  *
@@ -22,6 +24,8 @@ export class MemberTasksPage {
   member
   interval
   constructor(
+    private sms: SMS,
+    private callNumber: CallNumber,
     private alert: AlertController,
     public popoverCtrl: PopoverController,
     public navCtrl: NavController,
@@ -52,10 +56,15 @@ export class MemberTasksPage {
   ionViewDidLoad() {
     // console.log('ionViewDidLoad TasksPage');
   }
-  // openTask(task) {
-  //   console.log(task)
-  //   this.navCtrl.setRoot(SingleTaskPage, task)
-  // }
+  call(num){
+    !num?alert('Phone not found'):
+    this.callNumber.callNumber(num, true)
+    .then(() => console.log('Launched dialer!'))
+    .catch(() => console.log('Error launching dialer'));
+  }
+  callSms(num){
+    this.sms.send(num,'test')
+  }
   toggle(task) {
     this.api.toggleState(task.id)
       .subscribe((res) => {
@@ -146,6 +155,7 @@ export class MemberTasksPage {
       })
   }
   bindData(r) {
+    this.member=r.user
     this.data.memberTasks = r.tasks;
     this.userTasks = this.data.memberTasks;
     this.checkStarted();

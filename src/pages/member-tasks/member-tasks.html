@@ -7,38 +7,54 @@
 <headOn></headOn>
 
 <ion-content padding ng-if="userTasks">
-  <!-- <div class="titlePage">
+  <div class="titlePage">
     <div class="avatar">
-      <img ng-src="{{user.userImage}}">
+      <img [src]="member.userImage">
     </div>
-    <div class="name">
-      <h3 ng-bind-html="user.name | br"></h3>
+    <div class="headname">
+      <h3 [innerHTML]='member.name|br'></h3>
     </div>
-    <div class="call_icon" ng-if="user.phone">
-      <a ng-href="tel:{{user.phone}}">
-        <img src="img/telephone-icon.png">
-      </a>
-    </div>
-    <div class="call_icon" ng-if="!user.phone">
-      <img src="img/telephone-icon-disabled.png">
-    </div> -->
-  <!-- </div> -->
+    <ion-fab right top>
+      <button ion-fab color="light">
+        <ion-icon name="arrow-dropleft"></ion-icon>
+      </button>
+      <ion-fab-list side="left">
+        <button ion-fab (click)=call(member.phone)>
+          <ion-icon name="ios-call"></ion-icon>
+        </button>
+        <!-- <button ion-fab (click)=callSms(member.phone)><ion-icon name="ios-mail"></ion-icon></button> -->
+        <!-- <button ion-fab><ion-icon name="logo-skype"></ion-icon></button> -->
+      </ion-fab-list>
+    </ion-fab>
+  </div>
+  <div class="teamPage">
+    <table>
+      <tr class="userData">
+        <td>{{'start'|translate}}</td>
+        <td>{{member.startedTime|memTime}}</td>
+      </tr>
+      <tr class="userData">
+        <td>{{'end'|translate}}</td>
+        <td>{{member.status||'not_working'|translate}}</td>
+      </tr>
+    </table>
+  </div>
   <ion-list>
     <ion-item-sliding *ngFor='let task of userTasks'>
       <ion-item class="element" (click)='openTask(task)' [ngClass]="{active:task.current==true}">
         <div class="name">{{task.name|slice}}</div>
         <div class="time" [innerHtml]="task.time|time"></div>
-        <!-- <div class="arrow"> -->
-        <ion-icon name="ion-chevron-right">
-        </ion-icon>
-        <!-- </div> -->
-        <button ion-button icon-only>
-          <ion-icon name="ion-chevron-right"></ion-icon>
-        </button>
+        <ion-icon (click)='toggle(task)' *ngIf="!task.current" name="ios-play"></ion-icon>
+        <ion-icon (click)='toggle(task)' *ngIf="task.current" name="ios-pause"></ion-icon>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button (click)="onDelete(task)">Del</button>
-        <button ion-button color="danger" (click)="onEdit(task)">Edit</button>
+        <button ion-button (click)="onDelete(task)">
+          <ion-icon name="ios-trash-outline">
+          </ion-icon>
+        </button>
+        <button ion-button color="danger" (click)="onEdit(task)">
+          <ion-icon name='md-create'></ion-icon>
+        </button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

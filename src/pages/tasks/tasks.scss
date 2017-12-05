@@ -10,8 +10,15 @@ page-tasks {
     .time{
         width: 47%;
     }
+    .time > span {
+        position: relative;
+        bottom: 7px;
+    }
     .element{
         vertical-align: center;
+    }
+    ion-item-options{
+        height: 60px
     }
     .element ion-icon{
         font-size: 2em;
