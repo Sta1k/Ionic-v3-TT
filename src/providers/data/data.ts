@@ -48,7 +48,7 @@ export class DataProvider {
     this.Timer = setInterval(() => {
       obj.time++
       let arr = _.pluck(this.memberTasks, 'time')
-      this.summa(arr)
+      // this.summa(arr)
       this.events.publish('member', this.memberTasks)
     }, 1000)
   }

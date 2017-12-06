@@ -8,17 +8,12 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { Device } from '@ionic-native/device';
 import { DataProvider } from '../providers/data/data'
 import { OneSignal } from '@ionic-native/onesignal';
-// import { SingleTaskPage } from '../pages/single-task/single-task';
-
 import { LoginPage } from '../pages/login/login';
 import { TasksPage } from '../pages/tasks/tasks'
 import { TeamPage } from '../pages/team/team';
 import { StatisticPage } from '../pages/statistic/statistic'
-// import { ContactsPage } from '../pages/contacts/contacts';
 import { CreatePage } from '../pages/create/create';
 import { OptionsPage } from '../pages/options/options';
-// import { CurrentteamPage } from '../pages/currentteam/currentteam';
-// import { User } from '../app/shared/classes'
 import 'rxjs/add/operator/toPromise';
 import { Subscription } from 'rxjs';
 import { Geolocation } from '@ionic-native/geolocation'
