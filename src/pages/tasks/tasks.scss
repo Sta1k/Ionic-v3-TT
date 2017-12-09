@@ -18,7 +18,13 @@ page-tasks {
         vertical-align: center;
     }
     ion-item-options{
-        height: 60px
+        height: 60px;
+        border-radius: 5px;
+    }
+    ion-item-options .button{
+        width: 40px;
+        border-radius: 3px;
+        font-size:1.5em;
     }
     .element ion-icon{
         font-size: 2em;

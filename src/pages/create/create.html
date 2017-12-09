@@ -15,17 +15,16 @@
   </div>
   <ion-item>
     <ion-label color="dark" floating>{{'create_title'|translate}}</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="model.title"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="dark" floating>{{'create_desc'|translate}}</ion-label>
-    <ion-textarea></ion-textarea>
+    <ion-textarea [(ngModel)]="model.description"></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label color="dark">{{'create_assign'|translate}}</ion-label>
     <ion-select>
-      <ion-option value="f">Female</ion-option>
-      <ion-option value="m">Male</ion-option>
+      <ion-option *ngFor="let l of userList"  [value]='l.id'>{{l.name}}</ion-option>
     </ion-select>
   </ion-item>
 

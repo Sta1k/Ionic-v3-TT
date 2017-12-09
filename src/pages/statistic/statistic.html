@@ -16,7 +16,7 @@
   <ion-item>
     <ion-label>{{'stat_month'|translate}}</ion-label>
     <ion-select [(ngModel)]="monthData.name" (ionChange)=changeMonth($event)>
-      <ion-option *ngFor="let l of monthData" [selected]='l.selected' [value]='l.id'>{{l.name}}</ion-option>
+      <ion-option *ngFor="let l of monthData" [selected]='l.selected' [value]='l.id'>{{l.name|translate}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>

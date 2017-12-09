@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import * as _ from 'underscore';
 import { CallNumber } from '@ionic-native/call-number';
 import { SMS } from '@ionic-native/sms';
+import {TranslateService} from '@ngx-translate/core';
 /**
  * Generated class for the TasksPage page.
  *

@@ -41,7 +41,7 @@
   </div>
   <ion-list>
     <ion-item-sliding *ngFor='let task of userTasks'>
-      <ion-item class="element" (click)='openTask(task)' [ngClass]="{active:task.current==true}">
+      <ion-item class="element" [ngClass]="{active:task.current==true}">
         <div class="name">{{task.name|slice}}</div>
         <div class="time" [innerHtml]="task.time|time"></div>
         <ion-icon (click)='toggle(task)' *ngIf="!task.current" name="ios-play"></ion-icon>

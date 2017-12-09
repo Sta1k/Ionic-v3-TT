@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, PopoverController, Events, AlertCo
 import { ApiProvider } from '../../providers/api/api';
 import { DataProvider } from '../../providers/data/data';
 import { SingleTaskPage } from '../single-task/single-task'
+import { CreatePage } from '../create/create'
 import 'rxjs/add/operator/toPromise';
 import * as _ from 'underscore';
 /**
@@ -28,11 +29,11 @@ export class TasksPage {
     private api: ApiProvider,
     public data: DataProvider,
     public event: Events) {
-      // this.navParams.data
-      // ?
-      // this.userTasks=this.navParams.data
-      // :
-      this.event.subscribe('update', (tasks) => this.userTasks = tasks)
+    // this.navParams.data
+    // ?
+    // this.userTasks=this.navParams.data
+    // :
+    this.event.subscribe('update', (tasks) => this.userTasks = tasks)
 
   }
 
@@ -71,8 +72,8 @@ export class TasksPage {
             handler: () => {
               this.api.taskDelete(task)
                 .subscribe(res => {
-                  result= res.json()
-                  result.success?this.reqServ():console.log('error while deleting')
+                  result = res.json()
+                  result.success ? this.reqServ() : console.log('error while deleting')
                 })
             }
           }
@@ -82,9 +83,10 @@ export class TasksPage {
   }
   onEdit(task) {
     let result;
-    
-    this.api.taskUpdate(task).subscribe((res)=>{
-      result=res.json()
+
+    this.api.taskUpdate(task).subscribe((res) => {
+      result = res.json()
+      this.navCtrl.setRoot(CreatePage,result)
       console.log('Edit', result)
     })
   }

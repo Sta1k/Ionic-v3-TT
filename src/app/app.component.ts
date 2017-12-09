@@ -25,9 +25,10 @@ import * as _ from 'underscore';
 export class MyApp {
   private onResume: Subscription;
   private onPause: Subscription;
+  private touch_mes;
   @ViewChild('content') nav: NavController;
 
- public rootPage: any;
+  public rootPage: any;
 
   pages: Array<{ title: string, component: any, img: string }>;
 
@@ -40,9 +41,11 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public data: DataProvider,
     private api: ApiProvider,
-    private geo:Geolocation,
-    public translate:TranslateService
+    private geo: Geolocation,
+    public translate: TranslateService
   ) {
+    translate.get('touch_mes').subscribe(
+      value => { this.touch_mes = value })
     this.onResume = platform.resume.subscribe(() => {
       // do something meaningful when the app is put in the foreground
       console.log('app in foreground')
@@ -62,97 +65,25 @@ export class MyApp {
     ];
     this.initializeApp();
   }
-  ngOnDestroy() {
-    // always unsubscribe your subscriptions to prevent leaks
 
-    this.onResume.unsubscribe();
-    this.onPause.unsubscribe();
-  }
-  successRemember() {
-
-    let result,
-      user = {
-        username: this.user.username.__zone_symbol__value,
-        password: this.user.password.__zone_symbol__value
-      }
-    this.data.userLogin = user
-    console.log(this.data.userLogin)
-    return this.api.login(user)
-      .toPromise()
-      .then(res => result = res.json())
-      .then(result => result.success
-        ?
-        this.setUserType(result)
-        : console.log(result))
-  }
-  user;
-  username;
-  private setUserType(r) {
-    let result
-    this.data.userType = r.type;
-    this.data.userId=r.id;
-    this.api.requestTasks(false)
-      .toPromise()
-      .then(res => result = res.json())
-      .then(result => result.success ?
-        this.goToTasks(result) :
-        this.openPage(LoginPage))
-  }
-  private goToTasks(r) {
-
-    this.data.userTasks = r.tasks;
-    this.username = r.user.name;
-    this.getInformation()
-    this.data.AllWorkedTime = this.summa(_.pluck(this.data.userTasks, 'time'))
-    this.data.userType > 0 ? this.openPage(TeamPage) : this.openPage(TasksPage);
-  }
-  summa(m) {
-    for (var s = 0, k = m.length; k; s += m[--k]);
-    this.data.AllWorkedTime = s;
-  }
-  initUser() {
-    return this.user = {
-      username: this.db.getName(),
-      password: this.db.getPass()
-    }
-  }
-  defaultLang(e) {
-    console.log(e)
-    this.translate.setDefaultLang(this.platform.lang())
-    this.data.lang=this.platform.lang()
-  }
-  initLang(i) {
-    console.log(i)
-    if ((i !== undefined) && (i !== null)) {
-      this.translate.setDefaultLang(i);
-      this.data.lang=i
-    } else {
-      this.defaultLang({ e: null })
-    }
-  }
   initializeApp() {
     this.platform.ready().then(() => {
       this.getPos();
       let result;
-     
+
       this.initUser()
-      this.db.checkFinger().then(res => res ?
-        this.faio.isAvailable() ?
-          this.faio.show({
-            clientId: 'Fingerprint-Demo',
-            clientSecret: 'password', //Only necessary for Android
-            disableBackup: true,  //Only for Android(optional)
-            localizedFallbackTitle: 'Use Pin', //Only for iOS
-            localizedReason: 'Please authenticate' //Only for iOS
-          }).then(r => this.successRemember())
-            .catch(e => this.openPage(LoginPage)) : console.log('not available finger') :
-        this.db.checkRemember())
-        .then(
-        val => val ? this.successRemember() : this.openPage(LoginPage),
-        err => this.openPage(LoginPage))
-      
-      
-        this.statusBar.styleDefault();
+      this.db.checkFinger().then(v => this.data.finger = v);
+      this.db.checkRemember().then(v => this.data.remember = v)
+        .then((val) => this.data.finger
+          ?
+          this.fingerStart()
+          :
+          this.data.remember
+            ?
+            this.successRemember()
+            :
+            this.toLogin())
+      this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.oneSignal.startInit('77a9af35-365a-403f-9204-02f7370ac44e', '403307026230');
 
@@ -168,8 +99,27 @@ export class MyApp {
       this.oneSignal.endInit();
     });
     this.db.readLang()
-    .then(obj => this.initLang(obj))
-    .catch(e => this.defaultLang(e))
+      .then(obj => this.initLang(obj))
+      .catch(e => this.defaultLang(e))
+  }
+  toLogin() {
+    console.log('to Login')
+    this.openPage(LoginPage)
+  }
+  rememberStart() {
+
+  }
+  fingerStart() {
+    this.faio.isAvailable()
+      ?
+      this.faio.show({
+        clientId: 'Fingerprint-Demo',
+        clientSecret: 'password', //Only necessary for Android
+        disableBackup: true,  //Only for Android(optional)
+        localizedFallbackTitle: 'Use Pin', //Only for iOS
+        localizedReason: this.touch_mes //Only for iOS
+      }).then(r => this.successRemember())
+      : this.toLogin()
   }
   getPos() {
     // this.presentToast('App getting your Position')
@@ -190,17 +140,89 @@ export class MyApp {
       });
 
   }
-  getInformation(){
+  getInformation() {
     this.api.requestStatistic(null)
-    .subscribe(res => {
-      this.data.statData = res.json()
-      console.log(this.data.statData)
-    })
+      .subscribe(res => {
+        this.data.statData = res.json()
+        console.log(this.data.statData)
+      })
   }
   openPage(page) {
+
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page);
+  }
+  ngOnDestroy() {
+    // always unsubscribe your subscriptions to prevent leaks
+
+    this.onResume.unsubscribe();
+    this.onPause.unsubscribe();
+  }
+  successRemember() {
+
+    let result,
+      user = {
+        username: this.user.username.__zone_symbol__value,
+        password: this.user.password.__zone_symbol__value
+      }
+    this.data.userLogin = user
+    console.log('login', this.data.userLogin)
+    return this.api.login(user)
+      .toPromise()
+      .then(res => result = res.json())
+      .then(result => result.success
+        ?
+        this.setUserType(result)
+        : console.log(result))
+  }
+  user;
+  username;
+  private setUserType(r) {
+    let result
+
+    this.data.userType = r.type;
+    console.log('userType', this.data.userType)
+    this.data.userId = r.id;
+    this.api.requestTasks(false)
+      .toPromise()
+      .then(res => result = res.json())
+      .then(result => result.success ?
+        this.goToTasks(result, this.data.userType) :
+        this.openPage(LoginPage))
+  }
+  private goToTasks(r, type) {
+
+    this.data.userTasks = r.tasks;
+    this.username = r.user.name;
+    this.getInformation()
+    this.data.AllWorkedTime = this.summa(_.pluck(this.data.userTasks, 'time'))
+    console.log(this.data.userType, this.data.userType > 0)
+    type > 0 ? this.openPage(TeamPage) : this.openPage(TasksPage);
+  }
+  summa(m) {
+    for (var s = 0, k = m.length; k; s += m[--k]);
+    this.data.AllWorkedTime = s;
+  }
+  initUser() {
+    return this.user = {
+      username: this.db.getName(),
+      password: this.db.getPass()
+    }
+  }
+  defaultLang(e) {
+    console.log(e)
+    this.translate.setDefaultLang(this.platform.lang())
+    this.data.lang = this.platform.lang()
+  }
+  initLang(i) {
+    console.log(i)
+    if ((i !== undefined) && (i !== null)) {
+      this.translate.setDefaultLang(i);
+      this.data.lang = i
+    } else {
+      this.defaultLang({ e: null })
+    }
   }
 
 }

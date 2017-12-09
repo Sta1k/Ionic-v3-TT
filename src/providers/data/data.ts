@@ -31,18 +31,21 @@ export class DataProvider {
   Timer: any;
   lang: any;
   finger: boolean = false;
+  remember:boolean=false;
   clear() {
+    console.log('clear')
     clearInterval(this.Timer);
   }
   clearData(){
+    console.log('clearData')
     this.userId=undefined;
     this.statData=undefined;
     this.userTasks=undefined;
     this.userType=undefined;
-    this.userLogin=undefined;
-    
+    this.userLogin=undefined; 
   }
   startOT(task) {
+    console.log('startOT')
     let obj: any = _.findWhere(this.memberTasks, { id: task.id });
 
     this.Timer = setInterval(() => {

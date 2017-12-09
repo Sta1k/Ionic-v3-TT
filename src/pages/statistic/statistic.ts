@@ -25,7 +25,7 @@ export class StatisticPage {
   }
   differ=0
   iter=0
-  role = this.data.userType
+  role :any
   userList=_.pluck(this.data.statData.data, 'user')
   userData=_.findWhere(this.userList,{"id":this.data.userId})
   monthData = [
@@ -52,9 +52,9 @@ export class StatisticPage {
     public navParams: NavParams,
     public api: ApiProvider,
     public data: DataProvider) {
+      this.role = this.data.userType
       
-      
-      console.log('userList->',this.userList);
+      console.log('userList->',this.userList,'role->',this.role);
     this.selectMonth();
     this.api.requestStatistic(null).subscribe(res => {
       let resp = res.json()

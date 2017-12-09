@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { DataProvider } from '../../providers/data/data';
+import * as _ from 'underscore';
 /**
  * Generated class for the CreatePage page.
  *
@@ -14,12 +15,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'create.html',
 })
 export class CreatePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  model;
+  userList=_.pluck(this.data.statData.data, 'user')
+  constructor(public navCtrl: NavController, private data:DataProvider,public navParams: NavParams) {
+    this.model=this.navParams.data
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreatePage');
+   
+    console.log('CreatePage navparams',this.navParams);
   }
 
 }
