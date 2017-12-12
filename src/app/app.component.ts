@@ -106,9 +106,6 @@ export class MyApp {
     console.log('to Login')
     this.openPage(LoginPage)
   }
-  rememberStart() {
-
-  }
   fingerStart() {
     this.faio.isAvailable()
       ?
