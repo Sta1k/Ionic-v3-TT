@@ -52,7 +52,7 @@ export class MyApp {
     });
     this.onPause = platform.pause.subscribe(() => {
       console.log('app in background')
-      this.data.checkNotification();
+      // this.data.checkNotification();
     });
     // used for an example of ngFor and navigation
     this.pages = [
@@ -72,8 +72,10 @@ export class MyApp {
       let result;
 
       this.initUser()
-      this.db.checkFinger().then(v => this.data.finger = v);
-      this.db.checkRemember().then(v => this.data.remember = v)
+      this.db.checkFinger()
+        .then(v => this.data.finger = v);
+      this.db.checkRemember()
+        .then(v => this.data.remember = v)
         .then((val) => this.data.finger
           ?
           this.fingerStart()

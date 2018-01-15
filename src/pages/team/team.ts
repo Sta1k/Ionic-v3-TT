@@ -44,10 +44,11 @@ export class TeamPage {
         this.allData = _.filter(r, (obj)=> {
           return !_.isArray(obj) 
         })
-        console.log(r, this.allData)
+        
         this.allData.push({ id:255,
           title:'All Users',
           users:this.allUsers})
+          console.log('All teams', this.allData)
       })
   }
 
