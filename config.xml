@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Iterius_v3</name>
+<widget id="com.iterius.smiss" version="2.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Iterius</name>
     <description>Ionic 3 Iterius</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">SMISS Ltd. Team</author>
     <content src="index.html" />
@@ -82,7 +82,6 @@
     </platform>
     <allow-navigation href="http://172.16.3.18:8100" />
     <engine name="android" spec="6.3.0" />
-    <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.1" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
@@ -92,9 +91,9 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
+    <plugin name="onesignal-cordova-plugin" spec="~2.2.4" />
 </widget>
