@@ -1,6 +1,7 @@
 page-member-tasks {
     .head{
-        background-color: #282d39
+        background-color: #282d39;
+        height: 56px;
     }
     .name{
         width: 30%;
@@ -19,7 +20,7 @@ page-member-tasks {
     }
     .element ion-icon{
         font-size: 2em;
-        margin-left: 50px;
+        margin-left: 40px;
     }
     ion-item-options{
         height: 60px;
@@ -46,7 +47,7 @@ page-member-tasks {
         margin-top: 56px;
         background-color:#e1e1e1;
     }
-    .content-md{
+    .content-md,.content-ios{
         background-color:#e1e1e1;
     }
     .element ion-label{
@@ -105,5 +106,8 @@ page-member-tasks {
         line-height: 2em;
         margin-bottom: 2%;
         color: white;
+      }
+      .label-ios{
+          margin: 0;
       }
 }

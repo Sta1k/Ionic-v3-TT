@@ -1,4 +1,8 @@
 page-team {
+    .head{
+        background-color: #282d39;
+        height: 56px;
+    }
     ion-item{
         height:60px;
         display: inherit;
@@ -6,7 +10,7 @@ page-team {
         margin: 0 0 5px 0!important
     }
     .name{
-        width: 30%;
+        width: 50%;
         white-space: normal;
         overflow: hidden;
     }

@@ -15,7 +15,7 @@ export class SlicePipe implements PipeTransform {
    */
   transform(value: string, ...args) {
    let out;
-    value.length < 17?out = value:out = value.substring(0, 16) + '...'
+    value.length < 12?out = value:out = value.substring(0, 11) + '...'
     return out;
   }
 }

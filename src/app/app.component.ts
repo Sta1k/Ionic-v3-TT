@@ -68,6 +68,7 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.statusBar.hide();
       this.getPos();
       let result;
 

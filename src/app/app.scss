@@ -15,7 +15,8 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 ion-header .toolbar{
-    background-color: #282d39
+    background-color: #282d39;
+    height: 56px;
 }
 
 ion-content{
@@ -24,6 +25,8 @@ ion-content{
     background-color:#e1e1e1;
 }
 ion-app.md [padding],
+ion-app.ios [padding],
+ion-app.ios [padding] .scroll-content,
 ion-app.md [padding] .scroll-content {
   padding: 10px;
 }
@@ -46,8 +49,12 @@ ion-app.md [padding] .scroll-content {
     background: #282d39;
     color:white;
 }
-
+.list-ios .item-block .item-inner,
+.item-ios.item-block .item-inner,
 .list-md .item-block .item-inner,
 .item-md.item-block .item-inner {
     border-bottom:none;
+}
+.item-ios{
+    border-radius: 5px;
 }

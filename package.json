@@ -37,12 +37,10 @@
     "@types/underscore": "^1.8.5",
     "cordova-android": "6.3.0",
     "cordova-browser": "5.0.1",
-    "cordova-ios": "4.5.4",
-    "cordova-plugin-add-swift-support": "^1.7.0",
+    "cordova-plugin-add-swift-support": "^1.7.1",
     "cordova-plugin-compat": "^1.2.0",
-    "cordova-plugin-console": "^1.0.5",
     "cordova-plugin-device": "^1.1.4",
-    "cordova-plugin-fingerprint-aio": "^1.2.1",
+    "cordova-plugin-fingerprint-aio": "^1.3.4",
     "cordova-plugin-geolocation": "^2.4.3",
     "cordova-plugin-splashscreen": "^4.0.3",
     "cordova-plugin-statusbar": "^2.2.2",
@@ -53,7 +51,6 @@
     "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "^3.0.0",
-    "onesignal-cordova-plugin": "^2.2.2",
     "rxjs": "^5.5.2",
     "sw-toolbox": "3.6.0",
     "underscore": "^1.8.3",
@@ -68,23 +65,20 @@
   "cordova": {
     "platforms": [
       "android",
-      "ios",
       "browser"
     ],
     "plugins": {
-      "cordova-plugin-console": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-fingerprint-aio": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
       "cordova-sqlite-storage": {},
       "ionic-plugin-keyboard": {},
       "cordova-sms-plugin": {},
-      "onesignal-cordova-plugin": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      }
+      },
+      "cordova-plugin-fingerprint-aio": {}
     }
   }
 }
